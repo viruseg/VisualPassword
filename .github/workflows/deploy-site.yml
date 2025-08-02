@@ -3,6 +3,8 @@ name: Copy index.html to Site Branch
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'VisualPassword.Web/index.html'
   workflow_dispatch:
 
 jobs:
