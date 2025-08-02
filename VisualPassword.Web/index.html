@@ -340,9 +340,12 @@
             padding: 5px;
         }
 
-        .symbol:hover
+        @media (hover: hover)
         {
-            border-color: var(--symbol-hover-color);
+            .symbol:hover
+            {
+                border-color: var(--symbol-hover-color);
+            }
         }
 
         .symbol::after
@@ -435,9 +438,12 @@
             flex: 1 0 auto;
         }
 
-        .controlButton:hover
+        @media (hover: hover)
         {
-            border-color: var(--symbol-hover-color);
+            .controlButton:hover
+            {
+                border-color: var(--symbol-hover-color);
+            }
         }
 
         .controlButton:after
@@ -455,10 +461,13 @@
             border-style: solid;
         }
 
-        .controlApply:hover
+        @media (hover: hover)
         {
-            border-color: var(--apply-border-color);
-            border-style: solid;
+            .controlApply:hover
+            {
+                border-color: var(--apply-border-color);
+                border-style: solid;
+            }
         }
 
         .passwordContainer
@@ -568,9 +577,12 @@
             color: var(--content-text-color);
         }
 
-        .githubLink:hover
+        @media (hover: hover)
         {
-            color: #206AE6;
+            .githubLink:hover
+            {
+                color: #206AE6;
+            }
         }
     </style>
 </head>
