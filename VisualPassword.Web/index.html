@@ -55,8 +55,13 @@
             color: var(--content-text-color);
             display: flex;
             min-height: 100vh;
+            justify-content: center;
+        }
+
+        .bodyWrapper
+        {
+            display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-between;
         }
 
@@ -637,163 +642,165 @@
     </style>
 </head>
 <body>
-<div class="content">
-    <div class="mainContainer">
-        <div class="settings">
-            <div id="keywordContainer" class="containerWithLabel" headline="Keyword">
-                <div class="help">
-                    <div class="helpText">A keyword describing the password being created: google, facebook, etc</div>
-                </div>
-                <div class="inputWrapper">
-                    <input type="text" id="keywordInput" class="input"/>
-                    <div class="inputButtons">
-                        <div id="keywordClear" class="inputButton inputButtonClear"></div>
+<div class="bodyWrapper">
+    <div class="content">
+        <div class="mainContainer">
+            <div class="settings">
+                <div id="keywordContainer" class="containerWithLabel" headline="Keyword">
+                    <div class="help">
+                        <div class="helpText">A keyword describing the password being created: google, facebook, etc</div>
                     </div>
+                    <div class="inputWrapper">
+                        <input type="text" id="keywordInput" class="input"/>
+                        <div class="inputButtons">
+                            <div id="keywordClear" class="inputButton inputButtonClear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Pin">
+                    <div class="help">
+                        <div class="helpText">A pin used to generate the password. Leave blank for no pin. Reduces the chance of accidental password matches for different users.</div>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="password" id="pinInput" class="input"/>
+                        <div class="inputButtons">
+                            <div id="pinInputShowPin" class="inputButton inputButtonEye"></div>
+                            <div id="pinInputClear" class="inputButton inputButtonClear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Password Symbols">
+                    <div class="help">
+                        <div class="helpText">Symbols to include in the password.</div>
+                    </div>
+                    <div class="passwordSymbols">
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="lowercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="lowercaseCheckbox" translate="no">a-z</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="numbersCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="numbersCheckbox" translate="no">0-9</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="uppercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="uppercaseCheckbox" translate="no">A-Z</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="symbolsCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="symbolsCheckbox" translate="no">!@#$%^&*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Password Length">
+                    <div class="help">
+                        <div class="helpText">The length of the generated password.</div>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="number" id="lengthInput" class="input" min="0" max="1048576" value="32" needsave="true"/>
+                        <div class="inputButtons">
+                            <div id="lengthInputIncrement" class="inputButton inputButtonIncrement"></div>
+                            <div id="lengthInputDecrement" class="inputButton inputButtonDecrement"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="visualPassword1Container" class="containerWithLabel visualPassword1Container" headline="Visual Password">
+                    <div class="help">
+                        <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
+                    </div>
+                    <div id="visualPassword1" class="visualPassword"></div>
                 </div>
             </div>
-            <div class="containerWithLabel" headline="Pin">
-                <div class="help">
-                    <div class="helpText">A pin used to generate the password. Leave blank for no pin. Reduces the chance of accidental password matches for different users.</div>
-                </div>
-                <div class="inputWrapper">
-                    <input type="password" id="pinInput" class="input"/>
-                    <div class="inputButtons">
-                        <div id="pinInputShowPin" class="inputButton inputButtonEye"></div>
-                        <div id="pinInputClear" class="inputButton inputButtonClear"></div>
+            <div class="visualSymbolsContainer">
+                <div class="symbols containerWithLabel" headline="Emoji for a visual password">
+                    <div class="help">
+                        <div class="helpText">Use this symbol table to set a visual password.</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="A" count="0" passwordpart="MI=@4SA*m'\_pbtt7bEh_A😀b~SM~xy.eEAh,pRl8Wd67'\3#-Q4ϒۺ" emoji="❤">❤️</div>
+                        <div class="symbol" letter="B" count="0" passwordpart="[Ky7T^.qq-#.2'@zy=4p+i😁(HCS_Ke~m%JNvc;O4n#T%~H39i:gϾۻ" emoji="🦴">🦴</div>
+                        <div class="symbol" letter="C" count="0" passwordpart="QuM,c5FC0Qo*{6;Dv<^>xS😂^S8+G{jZpH[7RI^h+:$PI7^=6o\FϹۼ" emoji="🔔">🔔</div>
+                        <div class="symbol" letter="D" count="0" passwordpart="p3sc|CQL+Isw2cmkPmNYlB🤣't'BVjn}ol+K/Ap5*%a*@6rO7Bzoϱ۽" emoji="✈">✈️</div>
+                        <div class="symbol" letter="E" count="0" passwordpart="!y:L1Iu_:I5p2:\6y5j+k[😃4@x!]X!KdvmUo|NjmkWzW@F[{@b0Ͱ۾" emoji="🌻">🌻</div>
+                        <div class="symbol" letter="F" count="0" passwordpart="?Jbvh)`zHft?FM;DLj9YKx😄W|Q]4-WLYY68:sLkKGPvhL2TmeEpͶۿ" emoji="🍄">🍄</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="G" count="0" passwordpart="g{W!t|Wh<Z>V2,J7.w/u.W😅bP>fk0kN.9qZNOE>j3Ej%q``[r_Yϵݐ" emoji="🍉">🍉</div>
+                        <div class="symbol" letter="H" count="0" passwordpart="sn-Yd,hjO#uNx3hX'E(BCd😆?Xe4<7JtzepC9:$^`sDt5T&h/Gi3ᾨݑ" emoji="✂">✂️</div>
+                        <div class="symbol" letter="I" count="0" passwordpart="ka1sbM($-BKQB+@Y*p75Bt😉nR)lYU+bIum4h$,H{}^(~xK6|vEiὮݒ" emoji="📌">📌</div>
+                        <div class="symbol" letter="J" count="0" passwordpart="muGGamG58V<WY9aEmxc@7,😊TE{Dq<sEH_BjJwd<mM!YBM>wWmQWὪݓ" emoji="🍬">🍬</div>
+                        <div class="symbol" letter="K" count="0" passwordpart="Bl-=~/rtJE?y4U'8E$~#O7😋*OIz~hJ;/]k^)XTr~477ziJ#I!VkὫݔ" emoji="💎">💎</div>
+                        <div class="symbol" letter="L" count="0" passwordpart=">W'C?D>Jb@[~@;ikS$yi=g😎Y#d;mM.,.)o5SXz4j-Kf?RU1%Pl$Ὥݕ" emoji="🍕">🍕</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="M" count="0" passwordpart="$_y[a`YEFZ!z1a0|G-BqIt😍Msqsa5eOSZuq4uWTN%nH!k!`lO!.Ώݖ" emoji="⬅">⬅️</div>
+                        <div class="symbol" letter="N" count="0" passwordpart="5Eb&hgSP*[9Lupw/p$I$dq😘?v5VTi`27A4\K;eq>o7bS}[(hh;=Ὓݗ" emoji="➡">➡️</div>
+                        <div class="symbol" letter="O" count="0" passwordpart="Qu:`M5;@4o7NCruEqW!~Yw🥰H=%edAF$Uw6,'k'frw8p|a~&3=GdὝݘ" emoji="⬆">⬆️</div>
+                        <div class="symbol" letter="P" count="0" passwordpart="GpsN1hh'P18tl\%9Bu!262😗T:GEl/NT>c[*tqYt:lQz!_?C~b4zΎݙ" emoji="⬇">⬇️</div>
+                        <div class="symbol" letter="Q" count="0" passwordpart="`.+gi~0=f590.Bje5;KW,V😙]#0A|\*[*&85OsRf2p.4aS'D{A*sῬݚ" emoji="🌈">🌈</div>
+                        <div class="symbol" letter="R" count="0" passwordpart="uVks=X6X\N_rH5.aR)4e*l🥲mz{Dk/xB>R6w*m,z^w[hZRIWF[`&Ὂݛ" emoji="⛄">⛄</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="S" count="0" passwordpart="|hl{WHS_uw8(S*`c?4RlAg😚7H\1s4oOfgIt+U]t4F'7f1t?qPI!Ὄݜ" emoji="🔥">🔥</div>
+                        <div class="symbol" letter="T" count="0" passwordpart="!Ki@IV6usC4zB_{f;64'|w☺️BUDv~[w&p-22qG[$<6k,9wnY=jlὉݝm" emoji="❄">❄️</div>
+                        <div class="symbol" letter="U" count="0" passwordpart="TS2]_3Ik;p50sH%A_rWQ!(🙂I$na4QX]%%deOU@kf1/VtBG#kLnDἾݞ" emoji="💊">💊</div>
+                        <div class="symbol" letter="V" count="0" passwordpart="M&AUCAOcbneZI3|CL{?v`n🤗y[bfF{>s,+1AxXy(vx#<yFvv/7k)Ἲݟ" emoji="🐟">🐟</div>
+                        <div class="symbol" letter="W" count="0" passwordpart="Nmvh^c5/YilN0NgCp=J@p+🤩w/gHr;m]VQ:GztD[SHEw0#g|s$(|Ῐݠ" emoji="☂">☂️</div>
+                        <div class="symbol" letter="X" count="0" passwordpart="*v~vp0)<}q~j^mLFl`cq3@🤔fP^5OW:T1?UZGS2t}sHH9Ab|}wz%Ῑݡ" emoji="🏀">🏀</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="Y" count="0" passwordpart="~V/FLv}CLq2O)~Q[|WaPuM🫡p3dEb;8-048`}s&5]_\n,g|;2])nῚݢ" emoji="🥚">🥚</div>
+                        <div class="symbol" letter="Z" count="0" passwordpart="q0#4]Lc?MBaHVA:5L_#0F:🤨ofWU\}lDLWW{5SnfQ.S;@q.,;QFJᾘݣ" emoji="🦋">🦋</div>
+                        <div class="symbol" letter="0" count="0" passwordpart="$qm9S)o%c3s:3m<\e*EBP}😐qqp#S})gnTZU2'^NX=]7^{oqTlA<Ἦݤ" emoji="🌸">🌸</div>
+                        <div class="symbol" letter="1" count="0" passwordpart="++TN~Cc[`v<2m5rCZj.l2`😑u~n^jWq**QMobkSKCz*nR)wDt&\aἪ" emoji="🎨">🎨</div>
+                        <div class="symbol" letter="2" count="0" passwordpart="N[mBl*:XdFWqC/Ha$[.v0]😶Ax?g:a+rBGeL4!)a)Ffu>5|2VD8hἫݥ" emoji="🪜">🪜</div>
+                        <div class="symbol" letter="3" count="0" passwordpart="`ZSlt<-G4:7HNg+5np!^]g🫥:YV5!c;29hatJ1fExwhFjM|0%Fg;Ἥݦ" emoji="🎲">🎲</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="4" count="0" passwordpart="hu);YPBPd9p.<$9`SUl(*V😶zUIGpi-IrzpYQmuJ#0VGBx{|-YtsΉݧ" emoji="🎹">🎹</div>
+                        <div class="symbol" letter="5" count="0" passwordpart="B9|\bNrW\1rU7HhCvne4)L‍😮'\%n-3lc5gaYH\hI>.cY,,_7x(cἜݨJ" emoji="👑">👑</div>
+                        <div class="symbol" letter="6" count="0" passwordpart="K,@r6/ZJN9n|RaLo5C&T9:🙄CjepFcHJpm\6Fb}GDSQXU0gZ}t[PἛݩ" emoji="🧵">🧵</div>
+                        <div class="symbol" letter="7" count="0" passwordpart="AS/g~1'N'RYJk)y[L0[o/v😏6,rUlh^Or`wV'5`iZk&gnW5L0R~EἝݪ" emoji="🌳">🌳</div>
+                        <div class="symbol" letter="8" count="0" passwordpart="{.^j4pnE}LkYQ~>b9k.#RD😣\`.a]hl&][_Emq\@#'N=bA4+~a5;ᾊݫ" emoji="🪣">🪣</div>
+                        <div class="symbol" letter="9" count="0" passwordpart="}TmaJ_Dr(vq~^C@Cv:KFzv😥*<`*MZ5U,.B}dIJ-]Fb~6ztMjD5[ᾌݬ" emoji="🥅">🥅</div>
                     </div>
                 </div>
-            </div>
-            <div class="containerWithLabel" headline="Password Symbols">
-                <div class="help">
-                    <div class="helpText">Symbols to include in the password.</div>
-                </div>
-                <div class="passwordSymbols">
-                    <div class="checkboxContainer">
-                        <input type="checkbox" id="lowercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
-                        <label class="checkboxLabel" for="lowercaseCheckbox" translate="no">a-z</label>
+                <div id="visualSymbolsControlContainer" class="containerWithLabel visualSymbolsControlContainer" headline="Visual password control">
+                    <div class="help">
+                        <div class="helpText">Visual password management.</div>
                     </div>
-                    <div class="checkboxContainer">
-                        <input type="checkbox" id="numbersCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
-                        <label class="checkboxLabel" for="numbersCheckbox" translate="no">0-9</label>
-                    </div>
-                    <div class="checkboxContainer">
-                        <input type="checkbox" id="uppercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
-                        <label class="checkboxLabel" for="uppercaseCheckbox" translate="no">A-Z</label>
-                    </div>
-                    <div class="checkboxContainer">
-                        <input type="checkbox" id="symbolsCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
-                        <label class="checkboxLabel" for="symbolsCheckbox" translate="no">!@#$%^&*</label>
-                    </div>
+                    <div id="visualBackspace" class="controlButton controlBackspace"></div>
+                    <div id="visualClear" class="controlButton controlClear"></div>
+                    <div id="visualCopy" class="controlButton controlCopy"></div>
+                    <div id="visualPaste" class="controlButton controlPaste"></div>
                 </div>
-            </div>
-            <div class="containerWithLabel" headline="Password Length">
-                <div class="help">
-                    <div class="helpText">The length of the generated password.</div>
-                </div>
-                <div class="inputWrapper">
-                    <input type="number" id="lengthInput" class="input" min="0" max="1048576" value="32" needsave="true"/>
-                    <div class="inputButtons">
-                        <div id="lengthInputIncrement" class="inputButton inputButtonIncrement"></div>
-                        <div id="lengthInputDecrement" class="inputButton inputButtonDecrement"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="visualPassword1Container" class="containerWithLabel visualPassword1Container" headline="Visual Password">
-                <div class="help">
-                    <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
-                </div>
-                <div id="visualPassword1" class="visualPassword"></div>
             </div>
         </div>
-        <div class="visualSymbolsContainer">
-            <div class="symbols containerWithLabel" headline="Emoji for a visual password">
-                <div class="help">
-                    <div class="helpText">Use this symbol table to set a visual password.</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="A" count="0" passwordpart="MI=@4SA*m'\_pbtt7bEh_A😀b~SM~xy.eEAh,pRl8Wd67'\3#-Q4ϒۺ" emoji="❤">❤️</div>
-                    <div class="symbol" letter="B" count="0" passwordpart="[Ky7T^.qq-#.2'@zy=4p+i😁(HCS_Ke~m%JNvc;O4n#T%~H39i:gϾۻ" emoji="🦴">🦴</div>
-                    <div class="symbol" letter="C" count="0" passwordpart="QuM,c5FC0Qo*{6;Dv<^>xS😂^S8+G{jZpH[7RI^h+:$PI7^=6o\FϹۼ" emoji="🔔">🔔</div>
-                    <div class="symbol" letter="D" count="0" passwordpart="p3sc|CQL+Isw2cmkPmNYlB🤣't'BVjn}ol+K/Ap5*%a*@6rO7Bzoϱ۽" emoji="✈">✈️</div>
-                    <div class="symbol" letter="E" count="0" passwordpart="!y:L1Iu_:I5p2:\6y5j+k[😃4@x!]X!KdvmUo|NjmkWzW@F[{@b0Ͱ۾" emoji="🌻">🌻</div>
-                    <div class="symbol" letter="F" count="0" passwordpart="?Jbvh)`zHft?FM;DLj9YKx😄W|Q]4-WLYY68:sLkKGPvhL2TmeEpͶۿ" emoji="🍄">🍄</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="G" count="0" passwordpart="g{W!t|Wh<Z>V2,J7.w/u.W😅bP>fk0kN.9qZNOE>j3Ej%q``[r_Yϵݐ" emoji="🍉">🍉</div>
-                    <div class="symbol" letter="H" count="0" passwordpart="sn-Yd,hjO#uNx3hX'E(BCd😆?Xe4<7JtzepC9:$^`sDt5T&h/Gi3ᾨݑ" emoji="✂">✂️</div>
-                    <div class="symbol" letter="I" count="0" passwordpart="ka1sbM($-BKQB+@Y*p75Bt😉nR)lYU+bIum4h$,H{}^(~xK6|vEiὮݒ" emoji="📌">📌</div>
-                    <div class="symbol" letter="J" count="0" passwordpart="muGGamG58V<WY9aEmxc@7,😊TE{Dq<sEH_BjJwd<mM!YBM>wWmQWὪݓ" emoji="🍬">🍬</div>
-                    <div class="symbol" letter="K" count="0" passwordpart="Bl-=~/rtJE?y4U'8E$~#O7😋*OIz~hJ;/]k^)XTr~477ziJ#I!VkὫݔ" emoji="💎">💎</div>
-                    <div class="symbol" letter="L" count="0" passwordpart=">W'C?D>Jb@[~@;ikS$yi=g😎Y#d;mM.,.)o5SXz4j-Kf?RU1%Pl$Ὥݕ" emoji="🍕">🍕</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="M" count="0" passwordpart="$_y[a`YEFZ!z1a0|G-BqIt😍Msqsa5eOSZuq4uWTN%nH!k!`lO!.Ώݖ" emoji="⬅">⬅️</div>
-                    <div class="symbol" letter="N" count="0" passwordpart="5Eb&hgSP*[9Lupw/p$I$dq😘?v5VTi`27A4\K;eq>o7bS}[(hh;=Ὓݗ" emoji="➡">➡️</div>
-                    <div class="symbol" letter="O" count="0" passwordpart="Qu:`M5;@4o7NCruEqW!~Yw🥰H=%edAF$Uw6,'k'frw8p|a~&3=GdὝݘ" emoji="⬆">⬆️</div>
-                    <div class="symbol" letter="P" count="0" passwordpart="GpsN1hh'P18tl\%9Bu!262😗T:GEl/NT>c[*tqYt:lQz!_?C~b4zΎݙ" emoji="⬇">⬇️</div>
-                    <div class="symbol" letter="Q" count="0" passwordpart="`.+gi~0=f590.Bje5;KW,V😙]#0A|\*[*&85OsRf2p.4aS'D{A*sῬݚ" emoji="🌈">🌈</div>
-                    <div class="symbol" letter="R" count="0" passwordpart="uVks=X6X\N_rH5.aR)4e*l🥲mz{Dk/xB>R6w*m,z^w[hZRIWF[`&Ὂݛ" emoji="⛄">⛄</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="S" count="0" passwordpart="|hl{WHS_uw8(S*`c?4RlAg😚7H\1s4oOfgIt+U]t4F'7f1t?qPI!Ὄݜ" emoji="🔥">🔥</div>
-                    <div class="symbol" letter="T" count="0" passwordpart="!Ki@IV6usC4zB_{f;64'|w☺️BUDv~[w&p-22qG[$<6k,9wnY=jlὉݝm" emoji="❄">❄️</div>
-                    <div class="symbol" letter="U" count="0" passwordpart="TS2]_3Ik;p50sH%A_rWQ!(🙂I$na4QX]%%deOU@kf1/VtBG#kLnDἾݞ" emoji="💊">💊</div>
-                    <div class="symbol" letter="V" count="0" passwordpart="M&AUCAOcbneZI3|CL{?v`n🤗y[bfF{>s,+1AxXy(vx#<yFvv/7k)Ἲݟ" emoji="🐟">🐟</div>
-                    <div class="symbol" letter="W" count="0" passwordpart="Nmvh^c5/YilN0NgCp=J@p+🤩w/gHr;m]VQ:GztD[SHEw0#g|s$(|Ῐݠ" emoji="☂">☂️</div>
-                    <div class="symbol" letter="X" count="0" passwordpart="*v~vp0)<}q~j^mLFl`cq3@🤔fP^5OW:T1?UZGS2t}sHH9Ab|}wz%Ῑݡ" emoji="🏀">🏀</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="Y" count="0" passwordpart="~V/FLv}CLq2O)~Q[|WaPuM🫡p3dEb;8-048`}s&5]_\n,g|;2])nῚݢ" emoji="🥚">🥚</div>
-                    <div class="symbol" letter="Z" count="0" passwordpart="q0#4]Lc?MBaHVA:5L_#0F:🤨ofWU\}lDLWW{5SnfQ.S;@q.,;QFJᾘݣ" emoji="🦋">🦋</div>
-                    <div class="symbol" letter="0" count="0" passwordpart="$qm9S)o%c3s:3m<\e*EBP}😐qqp#S})gnTZU2'^NX=]7^{oqTlA<Ἦݤ" emoji="🌸">🌸</div>
-                    <div class="symbol" letter="1" count="0" passwordpart="++TN~Cc[`v<2m5rCZj.l2`😑u~n^jWq**QMobkSKCz*nR)wDt&\aἪ" emoji="🎨">🎨</div>
-                    <div class="symbol" letter="2" count="0" passwordpart="N[mBl*:XdFWqC/Ha$[.v0]😶Ax?g:a+rBGeL4!)a)Ffu>5|2VD8hἫݥ" emoji="🪜">🪜</div>
-                    <div class="symbol" letter="3" count="0" passwordpart="`ZSlt<-G4:7HNg+5np!^]g🫥:YV5!c;29hatJ1fExwhFjM|0%Fg;Ἥݦ" emoji="🎲">🎲</div>
-                </div>
-                <div class="symbolsLine">
-                    <div class="symbol" letter="4" count="0" passwordpart="hu);YPBPd9p.<$9`SUl(*V😶zUIGpi-IrzpYQmuJ#0VGBx{|-YtsΉݧ" emoji="🎹">🎹</div>
-                    <div class="symbol" letter="5" count="0" passwordpart="B9|\bNrW\1rU7HhCvne4)L‍😮'\%n-3lc5gaYH\hI>.cY,,_7x(cἜݨJ" emoji="👑">👑</div>
-                    <div class="symbol" letter="6" count="0" passwordpart="K,@r6/ZJN9n|RaLo5C&T9:🙄CjepFcHJpm\6Fb}GDSQXU0gZ}t[PἛݩ" emoji="🧵">🧵</div>
-                    <div class="symbol" letter="7" count="0" passwordpart="AS/g~1'N'RYJk)y[L0[o/v😏6,rUlh^Or`wV'5`iZk&gnW5L0R~EἝݪ" emoji="🌳">🌳</div>
-                    <div class="symbol" letter="8" count="0" passwordpart="{.^j4pnE}LkYQ~>b9k.#RD😣\`.a]hl&][_Emq\@#'N=bA4+~a5;ᾊݫ" emoji="🪣">🪣</div>
-                    <div class="symbol" letter="9" count="0" passwordpart="}TmaJ_Dr(vq~^C@Cv:KFzv😥*<`*MZ5U,.B}dIJ-]Fb~6ztMjD5[ᾌݬ" emoji="🥅">🥅</div>
-                </div>
+        <div id="visualPassword2Container" class="containerWithLabel visualPassword2Container" headline="Visual Password">
+            <div class="help">
+                <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
             </div>
-            <div id="visualSymbolsControlContainer" class="containerWithLabel visualSymbolsControlContainer" headline="Visual password control">
-                <div class="help">
-                    <div class="helpText">Visual password management.</div>
-                </div>
-                <div id="visualBackspace" class="controlButton controlBackspace"></div>
-                <div id="visualClear" class="controlButton controlClear"></div>
-                <div id="visualCopy" class="controlButton controlCopy"></div>
-                <div id="visualPaste" class="controlButton controlPaste"></div>
+            <div id="visualPassword2" class="visualPassword"></div>
+        </div>
+        <div id="passwordContainer" class="containerWithLabel" headline="Password">
+            <div class="help">
+                <div class="helpText">The generated password.</div>
+            </div>
+            <div class="passwordContainer">
+                <div id="passwordOutput" class="passwordOutput"></div>
+                <div id="passwordCopy" class="controlButton controlCopy passwordCopy"></div>
             </div>
         </div>
     </div>
-    <div id="visualPassword2Container" class="containerWithLabel visualPassword2Container" headline="Visual Password">
-        <div class="help">
-            <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
-        </div>
-        <div id="visualPassword2" class="visualPassword"></div>
-    </div>
-    <div id="passwordContainer" class="containerWithLabel" headline="Password">
-        <div class="help">
-            <div class="helpText">The generated password.</div>
-        </div>
-        <div class="passwordContainer">
-            <div id="passwordOutput" class="passwordOutput"></div>
-            <div id="passwordCopy" class="controlButton controlCopy passwordCopy"></div>
-        </div>
-    </div>
+    <footer>
+        <a class="githubLink" href="https://github.com/viruseg/VisualPassword" target="_blank">
+            <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" xmlns="http://www.w3.org/2000/svg" d="M12 2C6.5 2 2 6.5 2 12C2 16.3 4.8 20.1 8.8 21.5C9.3 21.6 9.5 21.3 9.5 21C9.5 20.8 9.5 20 9.5 19.1C7 19.6 6.4 18.5 6.2 18C6.1 17.7 5.6 16.8 5.2 16.6C4.9 16.4 4.4 16 5.2 15.9C6 15.9 6.5 16.6 6.7 16.9C7.6 18.4 9 18 9.6 17.8C9.7 17.2 10 16.7 10.2 16.5C8 16.2 5.7 15.3 5.7 11.5C5.7 10.4 6.1 9.5 6.7 8.8C6.6 8.5 6.2 7.5 6.8 6.1C6.8 6.1 7.6 5.8 9.6 7.1C10.3 6.9 11.2 6.8 12 6.8C12.9 6.8 13.7 6.9 14.5 7.1C16.4 5.8 17.3 6.1 17.3 6.1C17.8 7.5 17.5 8.5 17.4 8.7C18 9.4 18.4 10.3 18.4 11.4C18.4 15.2 16.1 16.1 13.8 16.3C14.2 16.6 14.5 17.2 14.5 18.2C14.5 19.5 14.5 20.6 14.5 21C14.5 21.3 14.7 21.6 15.2 21.5C19.3 20.1 22 16.3 22 12C22 6.5 17.5 2 12 2Z"></path>
+            </svg>
+            Github
+        </a>
+    </footer>
 </div>
-<footer>
-    <a class="githubLink" href="https://github.com/viruseg/VisualPassword" target="_blank">
-        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="currentColor" xmlns="http://www.w3.org/2000/svg" d="M12 2C6.5 2 2 6.5 2 12C2 16.3 4.8 20.1 8.8 21.5C9.3 21.6 9.5 21.3 9.5 21C9.5 20.8 9.5 20 9.5 19.1C7 19.6 6.4 18.5 6.2 18C6.1 17.7 5.6 16.8 5.2 16.6C4.9 16.4 4.4 16 5.2 15.9C6 15.9 6.5 16.6 6.7 16.9C7.6 18.4 9 18 9.6 17.8C9.7 17.2 10 16.7 10.2 16.5C8 16.2 5.7 15.3 5.7 11.5C5.7 10.4 6.1 9.5 6.7 8.8C6.6 8.5 6.2 7.5 6.8 6.1C6.8 6.1 7.6 5.8 9.6 7.1C10.3 6.9 11.2 6.8 12 6.8C12.9 6.8 13.7 6.9 14.5 7.1C16.4 5.8 17.3 6.1 17.3 6.1C17.8 7.5 17.5 8.5 17.4 8.7C18 9.4 18.4 10.3 18.4 11.4C18.4 15.2 16.1 16.1 13.8 16.3C14.2 16.6 14.5 17.2 14.5 18.2C14.5 19.5 14.5 20.6 14.5 21C14.5 21.3 14.7 21.6 15.2 21.5C19.3 20.1 22 16.3 22 12C22 6.5 17.5 2 12 2Z"></path>
-        </svg>
-        Github
-    </a>
-</footer>
 </body>
 </html>
 
