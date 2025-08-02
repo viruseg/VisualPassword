@@ -486,29 +486,84 @@
             display: flex;
         }
 
-        .controlBackspace:after
+        .inputWrapper
+        {
+            position: relative;
+        }
+
+        .inputButtons
+        {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-right: 7px;
+            gap: 7px;
+        }
+
+        .inputButton
+        {
+            width: 17px;
+            height: 17px;
+            background-color: var(--content-text-color);
+            mask: no-repeat center;
+            mask-size: contain;
+            cursor: pointer;
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .inputButton:hover
+            {
+                background-color: var(--symbol-hover-color);
+            }
+        }
+
+        .controlBackspace:after, .inputButtonBackspace
         {
             mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTEuNzA3MSA1LjI5Mjg5QzEyLjA5NzYgNS42ODM0MiAxMi4wOTc2IDYuMzE2NTggMTEuNzA3MSA2LjcwNzExTDcuNDE0MjEgMTFIMTlDMTkuNTUyMyAxMSAyMCAxMS40NDc3IDIwIDEyQzIwIDEyLjU1MjMgMTkuNTUyMyAxMyAxOSAxM0g3LjQxNDIxTDExLjcwNzEgMTcuMjkyOUMxMi4wOTc2IDE3LjY4MzQgMTIuMDk3NiAxOC4zMTY2IDExLjcwNzEgMTguNzA3MUMxMS4zMTY2IDE5LjA5NzYgMTAuNjgzNCAxOS4wOTc2IDEwLjI5MjkgMTguNzA3MUw0LjI5Mjg5IDEyLjcwNzFDNC4xMDUzNiAxMi41MTk2IDQgMTIuMjY1MiA0IDEyQzQgMTEuNzM0OCA0LjEwNTM2IDExLjQ4MDQgNC4yOTI4OSAxMS4yOTI5TDEwLjI5MjkgNS4yOTI4OUMxMC42ODM0IDQuOTAyMzcgMTEuMzE2NiA0LjkwMjM3IDExLjcwNzEgNS4yOTI4OVoiIGZpbGw9IiNGRkYiPjwvcGF0aD4KPC9zdmc+);
         }
 
-        .controlClear:after
+        .controlClear:after, .inputButtonClear
         {
             mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNNS4yOTI4OSA1LjI5Mjg5QzUuNjgzNDIgNC45MDIzNyA2LjMxNjU4IDQuOTAyMzcgNi43MDcxMSA1LjI5Mjg5TDEyIDEwLjU4NThMMTcuMjkyOSA1LjI5Mjg5QzE3LjY4MzQgNC45MDIzNyAxOC4zMTY2IDQuOTAyMzcgMTguNzA3MSA1LjI5Mjg5QzE5LjA5NzYgNS42ODM0MiAxOS4wOTc2IDYuMzE2NTggMTguNzA3MSA2LjcwNzExTDEzLjQxNDIgMTJMMTguNzA3MSAxNy4yOTI5QzE5LjA5NzYgMTcuNjgzNCAxOS4wOTc2IDE4LjMxNjYgMTguNzA3MSAxOC43MDcxQzE4LjMxNjYgMTkuMDk3NiAxNy42ODM0IDE5LjA5NzYgMTcuMjkyOSAxOC43MDcxTDEyIDEzLjQxNDJMNi43MDcxMSAxOC43MDcxQzYuMzE2NTggMTkuMDk3NiA1LjY4MzQyIDE5LjA5NzYgNS4yOTI4OSAxOC43MDcxQzQuOTAyMzcgMTguMzE2NiA0LjkwMjM3IDE3LjY4MzQgNS4yOTI4OSAxNy4yOTI5TDEwLjU4NTggMTJMNS4yOTI4OSA2LjcwNzExQzQuOTAyMzcgNi4zMTY1OCA0LjkwMjM3IDUuNjgzNDIgNS4yOTI4OSA1LjI5Mjg5WiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8L3N2Zz4=);
         }
 
-        .controlCopy:after
+        .controlCopy:after, .inputButtonCopy
         {
             mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMiA0QzIgMi44OTU0MyAyLjg5NTQzIDIgNCAySDE0QzE1LjEwNDYgMiAxNiAyLjg5NTQzIDE2IDRWOEgyMEMyMS4xMDQ2IDggMjIgOC44OTU0MyAyMiAxMFYyMEMyMiAyMS4xMDQ2IDIxLjEwNDYgMjIgMjAgMjJIMTBDOC44OTU0MyAyMiA4IDIxLjEwNDYgOCAyMFYxNkg0QzIuODk1NDMgMTYgMiAxNS4xMDQ2IDIgMTRWNFpNMTAgMTZWMjBIMjBWMTBIMTZWMTRDMTYgMTUuMTA0NiAxNS4xMDQ2IDE2IDE0IDE2SDEwWk0xNCAxNFY0TDQgNFYxNEgxNFoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
         }
 
-        .controlPaste:after
+        .controlPaste:after, .inputButtonPaste
         {
             mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNOCAzQzggMi40NDc3MiA4LjQ0NzcyIDIgOSAySDE1QzE1LjU1MjMgMiAxNiAyLjQ0NzcyIDE2IDNIMThDMTkuMTA0NiAzIDIwIDMuODk1NDMgMjAgNVYyMEMyMCAyMS4xMDQ2IDE5LjEwNDYgMjIgMTggMjJINkM0Ljg5NTQzIDIyIDQgMjEuMTA0NiA0IDIwVjVDNCAzLjg5NTQzIDQuODk1NDMgMyA2IDNIOFpNOCA1SDZWMjBIMThWNUgxNlY2QzE2IDYuNTUyMjggMTUuNTUyMyA3IDE1IDdIOUM4LjQ0NzcyIDcgOCA2LjU1MjI4IDggNlY1Wk0xNCA0SDEwVjVIMTRWNFoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
         }
 
-        .controlApply:after
+        .controlApply:after, .inputButtonApply
         {
             mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMjAuNjY0NCA1LjI1MjZDMjEuMDc3MiA1LjYxOTUyIDIxLjExNDMgNi4yNTE1OSAyMC43NDc0IDYuNjY0MzdMMTAuMDgwOCAxOC42NjQ0QzkuODkwOTkgMTguODc3OSA5LjYxODk4IDE5IDkuMzMzMzQgMTlDOS4wNDc3MSAxOSA4Ljc3NTcgMTguODc3OSA4LjU4NTkzIDE4LjY2NDRMMy4yNTI2IDEyLjY2NDRDMi44ODU2OCAxMi4yNTE2IDIuOTIyODYgMTEuNjE5NSAzLjMzNTY1IDExLjI1MjZDMy43NDg0MyAxMC44ODU3IDQuMzgwNSAxMC45MjI5IDQuNzQ3NDIgMTEuMzM1Nkw5LjMzMzM0IDE2LjQ5NDhMMTkuMjUyNiA1LjMzNTY1QzE5LjYxOTUgNC45MjI4NiAyMC4yNTE2IDQuODg1NjggMjAuNjY0NCA1LjI1MjZaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+Cjwvc3ZnPg==);
+        }
+
+        .inputButtonEye
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTUgMTJDMTUgMTMuNjU2OSAxMy42NTY5IDE1IDEyIDE1QzEwLjM0MzEgMTUgOSAxMy42NTY5IDkgMTJDOSAxMC4zNDMxIDEwLjM0MzEgOSAxMiA5QzEzLjY1NjkgOSAxNSAxMC4zNDMxIDE1IDEyWiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik0yMS44OTQ0IDExLjU1MjhDMTkuNzM2MiA3LjIzNjM1IDE1LjkwMzEgNSAxMiA1QzguMDk2ODcgNSA0LjI2Mzc5IDcuMjM2MzUgMi4xMDU1NyAxMS41NTI4QzEuOTY0ODEgMTEuODM0MyAxLjk2NDgxIDEyLjE2NTcgMi4xMDU1NyAxMi40NDcyQzQuMjYzNzkgMTYuNzYzNyA4LjA5Njg3IDE5IDEyIDE5QzE1LjkwMzEgMTkgMTkuNzM2MiAxNi43NjM3IDIxLjg5NDQgMTIuNDQ3MkMyMi4wMzUyIDEyLjE2NTcgMjIuMDM1MiAxMS44MzQzIDIxLjg5NDQgMTEuNTUyOFpNMTIgMTdDOS4wMzEyMSAxNyA1Ljk5ODA2IDE1LjM3OTIgNC4xMjk2NiAxMkM1Ljk5ODA2IDguNjIwNzggOS4wMzEyMSA3IDEyIDdDMTQuOTY4OCA3IDE4LjAwMTkgOC42MjA3OCAxOS44NzAzIDEyQzE4LjAwMTkgMTUuMzc5MiAxNC45Njg4IDE3IDEyIDE3WiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8L3N2Zz4=);
+        }
+
+        .inputButtonEyeOff
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNNC43MDcxMSAzLjI5Mjg5QzQuMzE2NTggMi45MDIzNyAzLjY4MzQyIDIuOTAyMzcgMy4yOTI4OSAzLjI5Mjg5QzIuOTAyMzcgMy42ODM0MiAyLjkwMjM3IDQuMzE2NTggMy4yOTI4OSA0LjcwNzExTDUuNzE3MDYgNy4xMzEyN0M0LjI4NjM5IDguMjA3MzcgMy4wMzkyNSA5LjY4NTQzIDIuMTA1NTcgMTEuNTUyOEMxLjk2NDgxIDExLjgzNDMgMS45NjQ4MSAxMi4xNjU3IDIuMTA1NTcgMTIuNDQ3MkM0LjI2Mzc5IDE2Ljc2MzcgOC4wOTY4NyAxOSAxMiAxOUMxMy41NTUyIDE5IDE1LjA5OTIgMTguNjQ1IDE2LjUzMDYgMTcuOTQ0OEwxOS4yOTI5IDIwLjcwNzFDMTkuNjgzNCAyMS4wOTc2IDIwLjMxNjYgMjEuMDk3NiAyMC43MDcxIDIwLjcwNzFDMjEuMDk3NiAyMC4zMTY2IDIxLjA5NzYgMTkuNjgzNCAyMC43MDcxIDE5LjI5MjlMNC43MDcxMSAzLjI5Mjg5Wk0xNS4wMTM4IDE2LjQyOEMxNC4wMzQzIDE2LjgxMTIgMTMuMDEzNCAxNyAxMiAxN0M5LjAzMTIxIDE3IDUuOTk4MDYgMTUuMzc5MiA0LjEyOTY2IDEyQzQuOTQ3MjEgMTAuNTIxNCA1Ljk4Nzc4IDkuMzc5NCA3LjE0ODM4IDguNTYyNTlMOS4yOTIzNyAxMC43MDY2QzkuMTA0OTUgMTEuMDk4MiA5IDExLjUzNjkgOSAxMkM5IDEzLjY1NjkgMTAuMzQzMSAxNSAxMiAxNUMxMi40NjMxIDE1IDEyLjkwMTggMTQuODk1MSAxMy4yOTM0IDE0LjcwNzZMMTUuMDEzOCAxNi40MjhaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+CjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0iTTE4LjU1MjMgMTMuODk1NUMxOS4wMzUzIDEzLjM0MDIgMTkuNDc4NCAxMi43MDg4IDE5Ljg3MDMgMTJDMTguMDAxOSA4LjYyMDc4IDE0Ljk2ODcgNyAxMiA3QzExLjg4OCA3IDExLjc3NTkgNy4wMDIzMSAxMS42NjM3IDcuMDA2OTNMOS44NzkzOSA1LjIyMjU4QzEwLjU3NzQgNS4wNzQ1MSAxMS4yODc1IDUgMTIgNUMxNS45MDMxIDUgMTkuNzM2MiA3LjIzNjM1IDIxLjg5NDQgMTEuNTUyOEMyMi4wMzUyIDExLjgzNDMgMjIuMDM1MiAxMi4xNjU3IDIxLjg5NDQgMTIuNDQ3MkMyMS4zNTA0IDEzLjUzNTIgMjAuNyAxNC40OTEgMTkuOTY4OSAxNS4zMTIxTDE4LjU1MjMgMTMuODk1NVoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .inputButtonIncrement
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTIgNEM3LjU4MTcyIDQgNCA3LjU4MTcyIDQgMTJDNCAxNi40MTgzIDcuNTgxNzIgMjAgMTIgMjBDMTYuNDE4MyAyMCAyMCAxNi40MTgzIDIwIDEyQzIwIDcuNTgxNzIgMTYuNDE4MyA0IDEyIDRaTTIgMTJDMiA2LjQ3NzE1IDYuNDc3MTUgMiAxMiAyQzE3LjUyMjggMiAyMiA2LjQ3NzE1IDIyIDEyQzIyIDE3LjUyMjggMTcuNTIyOCAyMiAxMiAyMkM2LjQ3NzE1IDIyIDIgMTcuNTIyOCAyIDEyWk0xMiA3QzEyLjU1MjMgNyAxMyA3LjQ0NzcyIDEzIDhWMTFIMTZDMTYuNTUyMyAxMSAxNyAxMS40NDc3IDE3IDEyQzE3IDEyLjU1MjMgMTYuNTUyMyAxMyAxNiAxM0gxM1YxNkMxMyAxNi41NTIzIDEyLjU1MjMgMTcgMTIgMTdDMTEuNDQ3NyAxNyAxMSAxNi41NTIzIDExIDE2VjEzSDhDNy40NDc3MiAxMyA3IDEyLjU1MjMgNyAxMkM3IDExLjQ0NzcgNy40NDc3MiAxMSA4IDExSDExVjhDMTEgNy40NDc3MiAxMS40NDc3IDcgMTIgN1oiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .inputButtonDecrement
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTIgNEM3LjU4MTcyIDQgNCA3LjU4MTcyIDQgMTJDNCAxNi40MTgzIDcuNTgxNzIgMjAgMTIgMjBDMTYuNDE4MyAyMCAyMCAxNi40MTgzIDIwIDEyQzIwIDcuNTgxNzIgMTYuNDE4MyA0IDEyIDRaTTIgMTJDMiA2LjQ3NzE1IDYuNDc3MTUgMiAxMiAyQzE3LjUyMjggMiAyMiA2LjQ3NzE1IDIyIDEyQzIyIDE3LjUyMjggMTcuNTIyOCAyMiAxMiAyMkM2LjQ3NzE1IDIyIDIgMTcuNTIyOCAyIDEyWk03IDEyQzcgMTEuNDQ3NyA3LjQ0NzcyIDExIDggMTFIMTZDMTYuNTUyMyAxMSAxNyAxMS40NDc3IDE3IDEyQzE3IDEyLjU1MjMgMTYuNTUyMyAxMyAxNiAxM0g4QzcuNDQ3NzIgMTMgNyAxMi41NTIzIDcgMTJaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+Cjwvc3ZnPg==);
         }
 
         .help
@@ -594,13 +649,24 @@
                 <div class="help">
                     <div class="helpText">A keyword describing the password being created: google, facebook, etc</div>
                 </div>
-                <input type="text" id="keywordInput" class="input"/>
+                <div class="inputWrapper">
+                    <input type="text" id="keywordInput" class="input"/>
+                    <div class="inputButtons">
+                        <div id="keywordClear" class="inputButton inputButtonClear"></div>
+                    </div>
+                </div>
             </div>
             <div class="containerWithLabel" headline="Pin">
                 <div class="help">
                     <div class="helpText">A pin used to generate the password. Leave blank for no pin. Reduces the chance of accidental password matches for different users.</div>
                 </div>
-                <input type="password" id="pinInput" class="input"/>
+                <div class="inputWrapper">
+                    <input type="password" id="pinInput" class="input"/>
+                    <div class="inputButtons">
+                        <div id="pinInputShowPin" class="inputButton inputButtonEye"></div>
+                        <div id="pinInputClear" class="inputButton inputButtonClear"></div>
+                    </div>
+                </div>
             </div>
             <div class="containerWithLabel" headline="Password Symbols">
                 <div class="help">
@@ -629,7 +695,13 @@
                 <div class="help">
                     <div class="helpText">The length of the generated password.</div>
                 </div>
-                <input type="number" id="lengthInput" class="input" min="1" max="4096" value="32" needsave="true"/>
+                <div class="inputWrapper">
+                    <input type="number" id="lengthInput" class="input" min="1" max="4096" value="32" needsave="true"/>
+                    <div class="inputButtons">
+                        <div id="lengthInputIncrement" class="inputButton inputButtonIncrement"></div>
+                        <div id="lengthInputDecrement" class="inputButton inputButtonDecrement"></div>
+                    </div>
+                </div>
             </div>
             <div id="visualPassword1Container" class="containerWithLabel visualPassword1Container" headline="Visual Password">
                 <div class="help">
@@ -924,6 +996,44 @@
             let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
             symbolInTable?.click();
         });
+    });
+
+    document.getElementById('keywordClear').addEventListener('click', () =>
+    {
+        document.getElementById('keywordInput').value = '';
+        version++;
+    });
+
+    document.getElementById('pinInputClear').addEventListener('click', () =>
+    {
+        document.getElementById('pinInput').value = '';
+        version++;
+    });
+
+    document.getElementById('pinInputShowPin').addEventListener('click', (o) =>
+    {
+        let inputButton = o.target;
+        if (inputButton.classList.contains('inputButtonEye'))
+            document.getElementById('pinInput').setAttribute('type', 'text');
+        else
+            document.getElementById('pinInput').setAttribute('type', 'password');
+        inputButton.classList.toggle('inputButtonEye');
+        inputButton.classList.toggle('inputButtonEyeOff');
+        version++;
+    });
+
+    document.getElementById('lengthInputIncrement').addEventListener('click', (o) =>
+    {
+        let lengthInput = document.getElementById('lengthInput');
+        lengthInput.value = parseInt(lengthInput.value) + 1;
+        version++;
+    });
+
+    document.getElementById('lengthInputDecrement').addEventListener('click', (o) =>
+    {
+        let lengthInput = document.getElementById('lengthInput');
+        lengthInput.value = parseInt(lengthInput.value) - 1;
+        version++;
     });
 
     function RecalculateSymbolsCount()
