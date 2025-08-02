@@ -1,0 +1,28 @@
+name: Copy index.html to Site Branch
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'VisualPassword.Web/index.html'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Prepare site files
+      run: |
+        mkdir -p site-build
+        cp VisualPassword.Web/index.html site-build/index.html
+        
+    - name: Deploy to Site branch
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site-build
+        publish_branch: Site
+        force_orphan: true
