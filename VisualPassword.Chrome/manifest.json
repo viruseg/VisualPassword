@@ -16,7 +16,7 @@
       }
    },
    "description": "A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down.",
-   "homepage_url": "https://bitwarden.com",
+   "homepage_url": "https://viruseg.github.io/VisualPassword/",
    "icons": {
       "48": "ico48.png"
    },
