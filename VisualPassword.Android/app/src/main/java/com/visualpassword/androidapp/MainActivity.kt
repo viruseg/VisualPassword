@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
         with(webView.settings) {
             javaScriptEnabled = true
             domStorageEnabled = true
-            allowFileAccess = true
             allowContentAccess = true
             cacheMode = WebSettings.LOAD_NO_CACHE
         }
