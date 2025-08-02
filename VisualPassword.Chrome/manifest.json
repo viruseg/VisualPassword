@@ -9,10 +9,9 @@
    "author": "Denis Tulupov",
    "commands": {
       "_execute_action": {
-         "description": "Open vault popup",
+         "description": "Open popup",
          "suggested_key": {
-            "default": "Ctrl+Shift+Y",
-            "linux": "Ctrl+Shift+U"
+            "default": "Ctrl+Shift+V"
          }
       }
    },
