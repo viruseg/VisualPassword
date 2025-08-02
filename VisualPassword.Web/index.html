@@ -691,12 +691,12 @@
                     </div>
                 </div>
             </div>
-            <div class="containerWithLabel" headline="Password Length (1-4096)">
+            <div class="containerWithLabel" headline="Password Length">
                 <div class="help">
                     <div class="helpText">The length of the generated password.</div>
                 </div>
                 <div class="inputWrapper">
-                    <input type="number" id="lengthInput" class="input" min="1" max="4096" value="32" needsave="true"/>
+                    <input type="number" id="lengthInput" class="input" min="0" max="1048576" value="32" needsave="true"/>
                     <div class="inputButtons">
                         <div id="lengthInputIncrement" class="inputButton inputButtonIncrement"></div>
                         <div id="lengthInputDecrement" class="inputButton inputButtonDecrement"></div>
@@ -1349,6 +1349,16 @@
                     return;
                 }
 
+                let passwordLength = lengthInput.value;
+
+                if (passwordLength < 1)
+                {
+                    passwordOutput.textContent = 'Password length must be at least 1.';
+                    passwordContainer.classList.add('error');
+                    inProcess = false;
+                    return;
+                }
+
                 let password = '';
 
                 document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
@@ -1358,7 +1368,6 @@
 
                 let keyword = keywordInput.value;
                 let pin = pinInput.value;
-                let passwordLength = lengthInput.value;
 
                 let lowercaseChecked = document.getElementById('lowercaseCheckbox').checked;
                 let uppercaseChecked = document.getElementById('uppercaseCheckbox').checked;
