@@ -1,0 +1,30 @@
+{
+   "action": {
+      "default_icon": {
+         "48": "ico48.png"
+      },
+      "default_popup": "index.html",
+      "default_title": "Visual Password"
+   },
+   "author": "Denis Tulupov",
+   "commands": {
+      "_execute_action": {
+         "description": "Open vault popup",
+         "suggested_key": {
+            "default": "Ctrl+Shift+Y",
+            "linux": "Ctrl+Shift+U"
+         }
+      }
+   },
+   "description": "A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down.",
+   "homepage_url": "https://bitwarden.com",
+   "icons": {
+      "48": "ico48.png"
+   },
+   "manifest_version": 3,
+   "minimum_chrome_version": "1.0",
+   "name": "Visual Password",
+   "permissions": [ "clipboardRead", "clipboardWrite" ],
+   "short_name": "Visual Password",
+   "version": "1.0.0"
+}
