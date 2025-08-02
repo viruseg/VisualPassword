@@ -1,7 +1,21 @@
+import java.text.SimpleDateFormat
+import java.util.*
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+}
+
+fun getVersionCode(): Int {
+    val dateFormat = SimpleDateFormat("yyMMddHH", Locale.getDefault())
+    return dateFormat.format(Date()).toInt()
+}
+
+fun getVersionName(): String {
+    val version = "1.0"
+    val dateFormat = SimpleDateFormat("yyMMdd", Locale.getDefault())
+    return "$version.${dateFormat.format(Date())}"
 }
 
 android {
@@ -12,8 +26,8 @@ android {
         applicationId = "com.visualpassword.androidapp"
         minSdk = 21
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = getVersionCode()
+        versionName = getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
