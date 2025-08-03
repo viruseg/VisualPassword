@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'VisualPassword.Web/index.html'
+      - 'VisualPassword.Android/BigIconAndroid.png'
   workflow_dispatch:
 
 jobs:
@@ -19,6 +20,7 @@ jobs:
       run: |
         mkdir -p site-build
         cp VisualPassword.Web/index.html site-build/index.html
+        cp VisualPassword.Android/BigIconAndroid.png site-build/BigIconAndroid.png
         
     - name: Deploy to Site branch
       uses: peaceiris/actions-gh-pages@v3
