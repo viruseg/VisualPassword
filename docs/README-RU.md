@@ -52,9 +52,9 @@ Visual Password создаёт пароли локально полностью 
 
 ### Web
 
-[https://visualpassword.pages.dev/]()
+[https://visualpassword.pages.dev/](https://visualpassword.pages.dev/)
 
-[https://viruseg.github.io/VisualPassword/]()
+[https://viruseg.github.io/VisualPassword/](https://viruseg.github.io/VisualPassword/)
 
 # License
 

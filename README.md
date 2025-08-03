@@ -50,9 +50,9 @@ Find and select the folder with the unpacked extension.
 
 ### Web
 
-[https://visualpassword.pages.dev/]()
+[https://visualpassword.pages.dev/](https://visualpassword.pages.dev/)
 
-[https://viruseg.github.io/VisualPassword/]()
+[https://viruseg.github.io/VisualPassword/](https://viruseg.github.io/VisualPassword/)
 
 # License
 
