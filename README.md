@@ -28,6 +28,26 @@ The same combination of input data will always produce the same password.
 2. Close Visual Password.
 3. To retrieve the password later, simply re-enter the same inputs.
 
+# Installation
+
+Latest release [https://github.com/viruseg/VisualPassword/releases](https://github.com/viruseg/VisualPassword/releases)
+
+### HTML-file
+Download VisualPassword.Web.html and run it locally or place it on any hosting. Limitation: It will not work over the http protocol.
+
+### Android
+Download VisualPassword.Android.apk and install it on your phone.
+
+### Google Chrome, Edge
+Download VisualPassword.Chrome.Extension.zip and unzip to any folder.
+Open the chrome://extensions page.
+Turn on developer mode in the upper-right corner.
+Click Download the unpacked extension.
+Find and select the folder with the unpacked extension.
+
+### Telegram
+[@VisualPassword_bot](https://t.me/VisualPassword_bot)
+
 # License
 
 Attribution-NonCommercial 4.0 International
