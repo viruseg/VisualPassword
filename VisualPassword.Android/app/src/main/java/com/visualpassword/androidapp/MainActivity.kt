@@ -1,11 +1,13 @@
 package com.visualpassword.androidapp
 
 import LocalWebServer
+import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
+import androidx.core.graphics.toColorInt
 
 class MainActivity : ComponentActivity() {
 
@@ -27,6 +29,7 @@ class MainActivity : ComponentActivity() {
             cacheMode = WebSettings.LOAD_NO_CACHE
         }
 
+        webView.setBackgroundColor("#282a35".toColorInt())
         webView.addJavascriptInterface(ClipboardInterface(this), "AndroidClipboard")
 
         webView.loadUrl("http://localhost:$port/index.html")

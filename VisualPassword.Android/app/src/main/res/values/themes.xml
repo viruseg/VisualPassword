@@ -4,5 +4,6 @@
     <style name="Theme.VisualPasswordAndroid" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowBackground">@color/launch_background_dark</item>
     </style>
 </resources>
