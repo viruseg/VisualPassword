@@ -64,6 +64,7 @@
             justify-content: center;
             scrollbar-width: thin;
             scrollbar-color: var(--navbar-scrollbar-color1) var(--navbar-scrollbar-color2);
+            overflow-x: hidden;
         }
 
         body.chromeExtension
@@ -76,6 +77,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        }
+
+        @media screen and (max-width: 384px)
+        {
+            .bodyWrapper
+            {
+                transform: scale(0.95);
+            }
         }
 
         footer
