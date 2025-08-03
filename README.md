@@ -48,6 +48,10 @@ Find and select the folder with the unpacked extension.
 ### Telegram
 [@VisualPassword_bot](https://t.me/VisualPassword_bot)
 
+### Web
+https://visualpassword.pages.dev/
+https://viruseg.github.io/VisualPassword/
+
 # License
 
 Attribution-NonCommercial 4.0 International
