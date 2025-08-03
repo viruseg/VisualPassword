@@ -49,8 +49,10 @@ Find and select the folder with the unpacked extension.
 [@VisualPassword_bot](https://t.me/VisualPassword_bot)
 
 ### Web
-https://visualpassword.pages.dev/
-https://viruseg.github.io/VisualPassword/
+
+[https://visualpassword.pages.dev/]()
+
+[https://viruseg.github.io/VisualPassword/]()
 
 # License
 
