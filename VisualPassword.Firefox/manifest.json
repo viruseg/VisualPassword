@@ -1,0 +1,32 @@
+{
+   "manifest_version": 2,
+   "name": "Visual Password",
+   "short_name": "Visual Password",
+   "version": "1.0.0",
+   "description": "A generator for strong and secure passwords using simple actions that are easy to remember and don't need to be written down.",
+   "author": "Denis Tulupov",
+   "homepage_url": "https://viruseg.github.io/VisualPassword/",
+   "icons": {
+      "48": "ico48.png"
+   },
+   "browser_action": {
+      "default_icon": {
+         "48": "ico48.png"
+      },
+      "default_popup": "index.html",
+      "default_title": "Visual Password"
+   },
+   "commands": {
+      "_execute_browser_action": {
+         "suggested_key": {
+            "default": "Ctrl+Shift+V"
+         },
+         "description": "Open popup"
+      }
+   },
+   "permissions": [
+      "clipboardRead",
+      "clipboardWrite"
+   ],
+   "strict_min_version" : "58.0"
+}
