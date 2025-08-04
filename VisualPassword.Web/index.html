@@ -444,6 +444,12 @@
             flex: 1 1 auto;
         }
 
+        .passwordOutput.infoText
+        {
+            white-space: normal;
+            word-break: normal;
+        }
+
         .passwordOutput,
         .symbol.mini::before,
         .help
@@ -1364,6 +1370,7 @@
                 let keywordInput = document.getElementById('keywordInput');
                 let pinInput = document.getElementById('pinInput');
 
+                passwordOutput.classList.add('infoText');
                 passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
                 passwordOutput.textContent = 'Generating password...';
 
@@ -1417,6 +1424,7 @@
                 let resultPassword = await CreatePassword(keyword, password, pin, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
 
                 passwordContainer.classList.add('success');
+                passwordOutput.classList.remove('infoText');
                 passwordOutput.textContent = resultPassword;
 
                 if (resultPassword.startsWith('Failed'))
