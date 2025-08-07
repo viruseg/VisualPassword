@@ -706,7 +706,7 @@
                         <div class="helpText">A pin used to generate the password. Leave blank for no pin. Reduces the chance of accidental password matches for different users.</div>
                     </div>
                     <div class="inputWrapper">
-                        <input type="password" id="pinInput" class="input"/>
+                        <input type="text" id="pinInput" class="input password" spellcheck="false" autocorrect="off" autocapitalize="none"/>
                         <div class="inputButtons">
                             <div id="pinInputShowPin" class="inputButton inputButtonEye"></div>
                             <div id="pinInputClear" class="inputButton inputButtonClear"></div>
@@ -849,6 +849,282 @@
 </html>
 
 <script>
+    class ClassWatcher
+    {
+        constructor(targetNode, classToWatch, classAddedCallback, classRemovedCallback, callbackParams)
+        {
+            this.targetNode = targetNode;
+            this.classToWatch = classToWatch;
+            this.classAddedCallback = classAddedCallback;
+            this.classRemovedCallback = classRemovedCallback;
+            this.callbackParam = callbackParams;
+            this.observer = null;
+            this.lastClassState = targetNode.classList.contains(this.classToWatch);
+
+            this.observer = new MutationObserver(this.MutationCallback);
+            this.observer.observe(this.targetNode, {attributes: true});
+        }
+
+        Disconnect()
+        {
+            this.observer.disconnect();
+        }
+
+        MutationCallback = mutationsList =>
+        {
+            for (let mutation of mutationsList)
+            {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class')
+                {
+                    let currentClassState = mutation.target.classList.contains(this.classToWatch);
+                    if (this.lastClassState !== currentClassState)
+                    {
+                        this.lastClassState = currentClassState;
+                        if (currentClassState)
+                            this.classAddedCallback(this.callbackParam);
+                        else
+                            this.classRemovedCallback(this.callbackParam);
+                    }
+                }
+            }
+        }
+    }
+
+    class PinInputController
+    {
+        constructor(inputElement)
+        {
+            this.input = inputElement;
+            this.realValue = '';
+            this.isUpdating = false;
+
+            let composing = false;
+
+            this.input.addEventListener('compositionstart', () =>
+            {
+                composing = true;
+            });
+
+            this.input.addEventListener('compositionend', () =>
+            {
+                composing = false;
+            });
+
+            this.input.addEventListener('beforeinput', (e) =>
+            {
+                if (composing || this.isUpdating || !this.input.classList.contains('password')) return;
+
+                e.preventDefault();
+                this.#HandleBeforeInput(e);
+            });
+
+            function WorkOnClassAdd(o)
+            {
+                o.realValue = o.input.value;
+                o.#OnClassChange('●'.repeat(o.RealValueLength));
+            }
+
+            function WorkOnClassRemoval(o)
+            {
+                o.#OnClassChange(o.realValue);
+            }
+
+            new ClassWatcher(this.input, 'password', WorkOnClassAdd, WorkOnClassRemoval, this);
+        }
+
+        #GraphemePositionToCodeUnits(graphemePosition)
+        {
+            const graphemes = this.Graphemes;
+            let codeUnitsPosition = 0;
+
+            for (let i = 0; i < Math.min(graphemePosition, graphemes.length); i++)
+            {
+                codeUnitsPosition += graphemes[i].segment.length;
+            }
+
+            return codeUnitsPosition;
+        }
+
+        #CodeUnitsPositionToGrapheme(codeUnitsPosition)
+        {
+            const graphemes = this.Graphemes;
+            let currentCodeUnits = 0;
+
+            for (let i = 0; i < graphemes.length; i++)
+            {
+                if (currentCodeUnits >= codeUnitsPosition)
+                {
+                    return i;
+                }
+                currentCodeUnits += graphemes[i].segment.length;
+            }
+
+            return graphemes.length;
+        }
+
+        #OnClassChange(inputValue)
+        {
+            const isPasswordMode = this.input.classList.contains('password');
+            let selectionStart, selectionEnd;
+
+            if (isPasswordMode)
+            {
+                const graphemeStart = this.#CodeUnitsPositionToGrapheme(this.input.selectionStart);
+                const graphemeEnd = this.#CodeUnitsPositionToGrapheme(this.input.selectionEnd);
+                selectionStart = graphemeStart;
+                selectionEnd = graphemeEnd;
+            }
+            else
+            {
+                selectionStart = this.#GraphemePositionToCodeUnits(this.input.selectionStart);
+                selectionEnd = this.#GraphemePositionToCodeUnits(this.input.selectionEnd);
+            }
+
+            this.isUpdating = true;
+            this.input.value = inputValue;
+            this.input.setSelectionRange(selectionStart, selectionEnd);
+            this.isUpdating = false;
+        }
+
+        #HandleBeforeInput(e)
+        {
+            const inputType = e.inputType;
+            const data = e.data;
+            const selectionStart = this.#GraphemePositionToCodeUnits(this.input.selectionStart);
+            const selectionEnd = this.#GraphemePositionToCodeUnits(this.input.selectionEnd);
+
+            let newRealValue = this.realValue;
+            let newCursorCodeUnitsPosition = selectionStart;
+
+            switch (inputType)
+            {
+                case 'insertText':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+
+                case 'deleteContentBackward':
+                    if (selectionStart === selectionEnd)
+                    {
+                        if (selectionStart > 0)
+                        {
+                            const tempGraphemes = this.#GetGraphemes(newRealValue.substring(0, selectionStart));
+                            if (tempGraphemes.length > 0)
+                            {
+                                const lastGrapheme = tempGraphemes[tempGraphemes.length - 1];
+                                const before = newRealValue.substring(0, selectionStart - lastGrapheme.segment.length);
+                                const after = newRealValue.substring(selectionStart);
+                                newRealValue = before + after;
+                                newCursorCodeUnitsPosition = selectionStart - lastGrapheme.segment.length;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + after;
+                        newCursorCodeUnitsPosition = selectionStart;
+                    }
+                    break;
+
+                case 'deleteContentForward':
+                    if (selectionStart === selectionEnd)
+                    {
+                        if (selectionStart < newRealValue.length)
+                        {
+                            const remainingText = newRealValue.substring(selectionStart);
+                            const nextGraphemes = this.#GetGraphemes(remainingText);
+                            if (nextGraphemes.length > 0)
+                            {
+                                const nextGrapheme = nextGraphemes[0];
+                                const before = newRealValue.substring(0, selectionStart);
+                                const after = newRealValue.substring(selectionStart + nextGrapheme.segment.length);
+                                newRealValue = before + after;
+                                newCursorCodeUnitsPosition = selectionStart;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + after;
+                        newCursorCodeUnitsPosition = selectionStart;
+                    }
+                    break;
+
+                case 'insertCompositionText':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+
+                case 'insertFromPaste':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+            }
+
+            this.realValue = newRealValue;
+
+            const newCursorGraphemePosition = this.#CodeUnitsPositionToGrapheme(newCursorCodeUnitsPosition);
+
+            this.isUpdating = true;
+            this.input.value = '●'.repeat(this.RealValueLength);
+            this.input.setSelectionRange(newCursorGraphemePosition, newCursorGraphemePosition);
+            this.isUpdating = false;
+            version++;
+        }
+
+        #GetGraphemes(str)
+        {
+            const segmenter = new Intl.Segmenter('und', { granularity: 'grapheme' });
+            return Array.from(segmenter.segment(str));
+        }
+
+        get Graphemes()
+        {
+            return this.#GetGraphemes(this.realValue);
+        }
+
+        get RealValueLength()
+        {
+            const graphemes = this.Graphemes;
+            return graphemes.length;
+        }
+
+        get RealValue()
+        {
+            return this.realValue;
+        }
+
+        Clear()
+        {
+            this.realValue = '';
+            this.isUpdating = true;
+            this.input.value = '';
+            this.isUpdating = false;
+        }
+    }
+
+    let pinInputController = new PinInputController(document.getElementById('pinInput'));
+
+
     let version = 0;
     let testPassed = true;
 
@@ -1052,7 +1328,7 @@
 
     document.getElementById('pinInputClear').addEventListener('click', () =>
     {
-        document.getElementById('pinInput').value = '';
+        pinInputController.Clear();
         version++;
     });
 
@@ -1060,9 +1336,9 @@
     {
         let inputButton = o.target;
         if (inputButton.classList.contains('inputButtonEye'))
-            document.getElementById('pinInput').setAttribute('type', 'text');
+            document.getElementById('pinInput').classList.remove('password');
         else
-            document.getElementById('pinInput').setAttribute('type', 'password');
+            document.getElementById('pinInput').classList.add('password');
         inputButton.classList.toggle('inputButtonEye');
         inputButton.classList.toggle('inputButtonEyeOff');
         version++;
@@ -1368,7 +1644,6 @@
                 let passwordOutput = document.getElementById('passwordOutput');
                 let lengthInput = document.getElementById('lengthInput');
                 let keywordInput = document.getElementById('keywordInput');
-                let pinInput = document.getElementById('pinInput');
 
                 passwordOutput.classList.add('infoText');
                 passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
@@ -1414,7 +1689,7 @@
                 });
 
                 let keyword = keywordInput.value;
-                let pin = pinInput.value;
+                let pin = pinInputController.RealValue;
 
                 let lowercaseChecked = document.getElementById('lowercaseCheckbox').checked;
                 let uppercaseChecked = document.getElementById('uppercaseCheckbox').checked;
