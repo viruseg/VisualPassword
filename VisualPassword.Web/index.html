@@ -1088,7 +1088,7 @@
             this.input.value = '●'.repeat(this.RealValueLength);
             this.input.setSelectionRange(newCursorGraphemePosition, newCursorGraphemePosition);
             this.isUpdating = false;
-            version++;
+            Changed();
         }
 
         #GetGraphemes(str)
@@ -1124,9 +1124,15 @@
 
     let pinInputController = new PinInputController(document.getElementById('pinInput'));
 
-
     let version = 0;
     let testPassed = true;
+    let changeTime = new Date().getTime();
+
+    function Changed()
+    {
+        version++;
+        changeTime = new Date().getTime();
+    }
 
     document.addEventListener('DOMContentLoaded', () =>
     {
@@ -1177,7 +1183,7 @@
 
             input.addEventListener('input', (o) =>
             {
-                version++;
+                Changed();
 
                 if (needSave)
                 {
@@ -1230,7 +1236,7 @@
             document.getElementById('visualPassword2').append(cloneSymbol2);
 
             symbol.setAttribute('count', parseInt(symbol.getAttribute('count')) + 1);
-            version++;
+            Changed();
 
             cloneSymbol.addEventListener('click', () => RemoveSymbol());
             cloneSymbol2.addEventListener('click', () => RemoveSymbol());
@@ -1239,7 +1245,7 @@
             {
                 cloneSymbol.remove();
                 cloneSymbol2.remove();
-                version++;
+                Changed();
             }
         });
     });
@@ -1255,7 +1261,7 @@
     {
         document.querySelector('#visualPassword1 > .symbol.mini:last-of-type').remove();
         document.querySelector('#visualPassword2 > .symbol.mini:last-of-type').remove();
-        version++;
+        Changed();
     });
 
     document.getElementById('visualClear').addEventListener('click', () =>
@@ -1268,7 +1274,7 @@
         {
             symbol.remove();
         });
-        version++;
+        Changed();
     });
 
     document.getElementById('visualCopy').addEventListener('click', async (o) =>
@@ -1323,13 +1329,13 @@
     document.getElementById('keywordClear').addEventListener('click', () =>
     {
         document.getElementById('keywordInput').value = '';
-        version++;
+        Changed();
     });
 
     document.getElementById('pinInputClear').addEventListener('click', () =>
     {
         pinInputController.Clear();
-        version++;
+        Changed();
     });
 
     document.getElementById('pinInputShowPin').addEventListener('click', (o) =>
@@ -1341,21 +1347,20 @@
             document.getElementById('pinInput').classList.add('password');
         inputButton.classList.toggle('inputButtonEye');
         inputButton.classList.toggle('inputButtonEyeOff');
-        version++;
     });
 
     document.getElementById('lengthInputIncrement').addEventListener('click', (o) =>
     {
         let lengthInput = document.getElementById('lengthInput');
         lengthInput.value = parseInt(lengthInput.value) + 1;
-        version++;
+        Changed();
     });
 
     document.getElementById('lengthInputDecrement').addEventListener('click', (o) =>
     {
         let lengthInput = document.getElementById('lengthInput');
         lengthInput.value = parseInt(lengthInput.value) - 1;
-        version++;
+        Changed();
     });
 
     function RecalculateSymbolsCount()
@@ -1635,81 +1640,80 @@
 
         setInterval(async () =>
         {
-            if (!inProcess && completeVersion !== version)
+            if (inProcess || completeVersion === version || new Date().getTime() - changeTime < 500) return;
+
+            inProcess = true;
+            completeVersion = version;
+
+            let passwordContainer = document.getElementById('passwordContainer');
+            let passwordOutput = document.getElementById('passwordOutput');
+            let lengthInput = document.getElementById('lengthInput');
+            let keywordInput = document.getElementById('keywordInput');
+
+            passwordOutput.classList.add('infoText');
+            passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
+            passwordOutput.textContent = 'Generating password...';
+
+            passwordContainer.classList.remove('success');
+            passwordContainer.classList.remove('error');
+
+            RecalculateSymbolsCount();
+            ValidateSymbolsCheckbox();
+            ValidateNumberValue(lengthInput);
+
+            if (!testPassed)
             {
-                inProcess = true;
-                completeVersion = version;
-
-                let passwordContainer = document.getElementById('passwordContainer');
-                let passwordOutput = document.getElementById('passwordOutput');
-                let lengthInput = document.getElementById('lengthInput');
-                let keywordInput = document.getElementById('keywordInput');
-
-                passwordOutput.classList.add('infoText');
-                passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
-                passwordOutput.textContent = 'Generating password...';
-
-                passwordContainer.classList.remove('success');
-                passwordContainer.classList.remove('error');
-
-                RecalculateSymbolsCount();
-                ValidateSymbolsCheckbox();
-                ValidateNumberValue(lengthInput);
-
-                if (!testPassed)
-                {
-                    passwordOutput.textContent = 'Password generation is not possible because it returns an unexpected result.';
-                    inProcess = false;
-                    return;
-                }
-
-                if (!ValidateKeyword() || !ValidateVisualPassword())
-                {
-                    passwordOutput.innerHTML = 'Input <span class="attention">Keyword</span> and <span class="attention">Visual Password</span> to generate password.<br>' +
-                                               'The same source data always generates the same password.';
-                    inProcess = false;
-                    return;
-                }
-
-                let passwordLength = lengthInput.value;
-
-                if (passwordLength < 1)
-                {
-                    passwordOutput.textContent = 'Password length must be at least 1.';
-                    passwordContainer.classList.add('error');
-                    inProcess = false;
-                    return;
-                }
-
-                let password = '';
-
-                document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
-                {
-                    password += symbol.getAttribute('passwordpart') + symbol.textContent;
-                });
-
-                let keyword = keywordInput.value;
-                let pin = pinInputController.RealValue;
-
-                let lowercaseChecked = document.getElementById('lowercaseCheckbox').checked;
-                let uppercaseChecked = document.getElementById('uppercaseCheckbox').checked;
-                let numbersChecked = document.getElementById('numbersCheckbox').checked;
-                let symbolsChecked = document.getElementById('symbolsCheckbox').checked;
-
-                let resultPassword = await CreatePassword(keyword, password, pin, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
-
-                passwordContainer.classList.add('success');
-                passwordOutput.classList.remove('infoText');
-                passwordOutput.textContent = resultPassword;
-
-                if (resultPassword.startsWith('Failed'))
-                {
-                    passwordContainer.classList.add('error');
-                }
-
+                passwordOutput.textContent = 'Password generation is not possible because it returns an unexpected result.';
                 inProcess = false;
+                return;
             }
-        }, 10);
+
+            if (!ValidateKeyword() || !ValidateVisualPassword())
+            {
+                passwordOutput.innerHTML = 'Input <span class="attention">Keyword</span> and <span class="attention">Visual Password</span> to generate password.<br>' +
+                                           'The same source data always generates the same password.';
+                inProcess = false;
+                return;
+            }
+
+            let passwordLength = lengthInput.value;
+
+            if (passwordLength < 1)
+            {
+                passwordOutput.textContent = 'Password length must be at least 1.';
+                passwordContainer.classList.add('error');
+                inProcess = false;
+                return;
+            }
+
+            let password = '';
+
+            document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
+            {
+                password += symbol.getAttribute('passwordpart') + symbol.textContent;
+            });
+
+            let keyword = keywordInput.value;
+            let pin = pinInputController.RealValue;
+
+            let lowercaseChecked = document.getElementById('lowercaseCheckbox').checked;
+            let uppercaseChecked = document.getElementById('uppercaseCheckbox').checked;
+            let numbersChecked = document.getElementById('numbersCheckbox').checked;
+            let symbolsChecked = document.getElementById('symbolsCheckbox').checked;
+
+            let resultPassword = await CreatePassword(keyword, password, pin, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
+
+            passwordContainer.classList.add('success');
+            passwordOutput.classList.remove('infoText');
+            passwordOutput.textContent = resultPassword;
+
+            if (resultPassword.startsWith('Failed'))
+            {
+                passwordContainer.classList.add('error');
+            }
+
+            inProcess = false;
+        }, 100);
 
         async function TestCreatePassword()
         {
@@ -1734,7 +1738,7 @@
             let expectedPassword = '&878Nl%m~1M8f\\(|H3/:h~9~_$`.0=ljU!?_WB\'Xo~E>Sq&Pqa';
 
             testPassed = (resultPassword === expectedPassword);
-            version++;
+            Changed();
         }
 
         TestCreatePassword();
