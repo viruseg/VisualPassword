@@ -1306,14 +1306,18 @@
 
     document.getElementById('visualClear').addEventListener('click', () =>
     {
+        let hasEmoji = false;
         document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
         {
             symbol.remove();
+            hasEmoji = true;
         });
         document.querySelectorAll('#visualPassword2 > .symbol.mini').forEach(symbol =>
         {
             symbol.remove();
+            hasEmoji = true;
         });
+        if (hasEmoji) VisualPassword1ContainerFlash();
         Changed();
     });
 
@@ -1328,9 +1332,20 @@
 
         if (password.length === 0) return;
 
-        let container = document.getElementById('visualSymbolsControlContainer');
+        let container = document.getElementById('visualPassword1Container');
         await CopyTextToClipboard(password, o.target, container);
     });
+
+    function VisualPassword1ContainerFlash()
+    {
+        let container = document.getElementById('visualPassword1Container');
+        container.classList.add('apply');
+
+        setTimeout(() =>
+        {
+            container.classList.remove('apply');
+        }, 1000);
+    }
 
     async function ReadClipboard()
     {
@@ -1359,11 +1374,21 @@
 
         document.getElementById('visualClear').click();
 
+        let hasEmoji = false;
+
         Array.from(password).forEach(symbol =>
         {
             let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
-            symbolInTable?.click();
+            if (symbolInTable)
+            {
+                symbolInTable.click();
+                hasEmoji = true;
+            }
         });
+        if (hasEmoji)
+            VisualPassword1ContainerFlash();
+        else
+            document.getElementById('visualPassword1Container').classList.remove('apply');
     });
 
     document.getElementById('keywordClear').addEventListener('click', () =>
