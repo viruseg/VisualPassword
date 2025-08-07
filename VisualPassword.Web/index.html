@@ -182,20 +182,6 @@
             border-color: var(--error-border-color);
         }
 
-        .containerWithLabel.error:has(input:focus):before
-        {
-            content: '';
-            border: 1px solid var(--error-border-color);
-            border-radius: 5px;
-            display: block;
-            position: absolute;
-            width: calc(100% - 4px);
-            height: calc(100% - 4px);
-            left: 1px;
-            top: 1px;
-            z-index: -1;
-        }
-
         .containerWithLabel.success
         {
             border-color: var(--success-border-color);
@@ -209,6 +195,11 @@
         .containerWithLabel.apply
         {
             border-color: var(--apply-border-color);
+        }
+
+        .containerWithLabel.error .keywordInput
+        {
+            background-color: #3C2E2E;
         }
 
         .input
@@ -700,7 +691,7 @@
                         <div class="helpText">A keyword describing the password being created: google, facebook, etc</div>
                     </div>
                     <div class="inputWrapper">
-                        <input type="text" id="keywordInput" class="input"/>
+                        <input type="text" id="keywordInput" class="input keywordInput"/>
                         <div class="inputButtons">
                             <div id="keywordClear" class="inputButton inputButtonClear"></div>
                         </div>
