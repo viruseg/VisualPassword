@@ -45,6 +45,9 @@ Turn on developer mode in the upper-right corner.
 Click Download the unpacked extension.
 Find and select the folder with the unpacked extension.
 
+### Firefox
+Install via [Firefox Browser Add-ons](https://addons.mozilla.org/firefox/addon/visual-password/).
+
 ### Telegram
 [@VisualPassword_bot](https://t.me/VisualPassword_bot)
 
