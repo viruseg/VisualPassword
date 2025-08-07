@@ -516,12 +516,14 @@
             gap: 5px;
         }
 
-        .passwordContainer .passwordCopy
+        .passwordContainer .passwordCopy,
+        .passwordContainer .passwordClear
         {
             display: none;
         }
 
-        .success .passwordContainer .passwordCopy
+        .success .passwordContainer .passwordCopy,
+        .success .passwordContainer .passwordClear
         {
             display: flex;
         }
@@ -834,6 +836,7 @@
             <div class="passwordContainer">
                 <div id="passwordOutput" class="passwordOutput"></div>
                 <div id="passwordCopy" class="controlButton controlCopy passwordCopy"></div>
+                <div id="passwordClear" class="controlButton controlClear passwordClear"></div>
                 <div id="passwordShuffle" class="controlButton controlShuffle"></div>
             </div>
         </div>
@@ -1268,6 +1271,15 @@
         let password = document.getElementById('passwordOutput').textContent;
         let container = document.getElementById('passwordContainer');
         await CopyTextToClipboard(password, o.target, container);
+    });
+
+    document.getElementById('passwordClear').addEventListener('click', async (o) =>
+    {
+        document.getElementById('keywordInput').value = '';
+        document.getElementById('visualClear').click();
+        pinInputController.RealValue = '';
+        document.getElementById('visualPassword1Container').classList.remove('apply');
+        Changed();
     });
 
     document.getElementById('passwordShuffle').addEventListener('click', async (o) =>
