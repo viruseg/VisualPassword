@@ -47,6 +47,9 @@ Visual Password создаёт пароли локально полностью 
 Нажмите Загрузить распакованное расширение.
 Найдите и выберите папку с распакованным расширением.
 
+### Firefox
+Установить через [Firefox Browser Add-ons](https://addons.mozilla.org/firefox/addon/visual-password/).
+
 ### Telegram
 [@VisualPassword_bot](https://t.me/VisualPassword_bot)
 
