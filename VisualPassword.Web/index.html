@@ -1279,6 +1279,7 @@
         document.getElementById('visualClear').click();
         pinInputController.RealValue = '';
         document.getElementById('visualPassword1Container').classList.remove('apply');
+        document.getElementById('visualPassword2Container').classList.remove('apply');
         Changed();
     });
 
@@ -1325,7 +1326,7 @@
             symbol.remove();
             hasEmoji = true;
         });
-        if (hasEmoji) VisualPassword1ContainerFlash();
+        if (hasEmoji) VisualPasswordContainerFlash();
         Changed();
     });
 
@@ -1342,16 +1343,20 @@
 
         let container = document.getElementById('visualPassword1Container');
         await CopyTextToClipboard(password, o.target, container);
+        VisualPasswordContainerFlash();
     });
 
-    function VisualPassword1ContainerFlash()
+    function VisualPasswordContainerFlash()
     {
-        let container = document.getElementById('visualPassword1Container');
-        container.classList.add('apply');
+        let container1 = document.getElementById('visualPassword1Container');
+        let container2 = document.getElementById('visualPassword2Container');
+        container1.classList.add('apply');
+        container2.classList.add('apply');
 
         setTimeout(() =>
         {
-            container.classList.remove('apply');
+            container1.classList.remove('apply');
+            container2.classList.remove('apply');
         }, 1000);
     }
 
@@ -1394,9 +1399,12 @@
             }
         });
         if (hasEmoji)
-            VisualPassword1ContainerFlash();
+            VisualPasswordContainerFlash();
         else
+        {
             document.getElementById('visualPassword1Container').classList.remove('apply');
+            document.getElementById('visualPassword2Container').classList.remove('apply');
+        }
     });
 
     document.getElementById('keywordClear').addEventListener('click', () =>
