@@ -13,7 +13,7 @@ fun getVersionCode(): Int {
 }
 
 fun getVersionName(): String {
-    val version = "1.0"
+    val version = "1.1"
     val dateFormat = SimpleDateFormat("yyMMdd", Locale.getDefault())
     return "$version.${dateFormat.format(Date())}"
 }
