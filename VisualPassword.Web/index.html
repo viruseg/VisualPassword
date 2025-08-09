@@ -75,6 +75,7 @@
             color: var(--content-text-color);
             display: flex;
             min-height: 100vh;
+            min-height: 100svh;
             justify-content: center;
             scrollbar-width: thin;
             scrollbar-color: var(--navbar-scrollbar-color1) var(--navbar-scrollbar-color2);
@@ -1143,6 +1144,7 @@
     let version = 0;
     let testPassed = true;
     let changeTime = new Date().getTime();
+    let isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     function Changed()
     {
@@ -1152,10 +1154,7 @@
 
     document.addEventListener('DOMContentLoaded', () =>
     {
-        {
-            let isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (!isMobile) document.getElementById('keywordInput').focus();
-        }
+        if (!isMobile) document.getElementById('keywordInput').focus();
 
         document.querySelectorAll('.help').forEach(help =>
         {
@@ -1750,7 +1749,7 @@
             let keywordInput = document.getElementById('keywordInput');
 
             passwordOutput.classList.add('infoText');
-            passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
+            if (!isMobile) passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
             passwordOutput.textContent = 'Generating password...';
 
             passwordContainer.classList.remove('success');
