@@ -1390,12 +1390,16 @@
 
         Array.from(password).forEach(symbol =>
         {
-            let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
-            if (symbolInTable)
+            try
             {
-                symbolInTable.click();
-                hasEmoji = true;
+                let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
+                if (symbolInTable)
+                {
+                    symbolInTable.click();
+                    hasEmoji = true;
+                }
             }
+            catch {}
         });
         if (hasEmoji)
             VisualPasswordContainerFlash();
