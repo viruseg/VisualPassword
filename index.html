@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title>Visual Password</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAllBMVEUAAAAFBQUFBQUEBQUFBQUFBQUFBQUAitUFBQUFBQUEBQUFBQUFBQUFBQUEBQUFBQUEBQYEBggFBQUFBQUFBQUFBQUFBQUFBQUFBQUAitUFBQUAitUAitUFBQUFBQUFBQUFBQUFBQUAitUFBQUFBQUAEhoAEBcALEMAITIAitUAitUFBQUAitUAKkAAJDgADRQAgccAK0L+6yDqAAAAK3RSTlMA1cX239oSB+rBLx4G86TTx6+YlJCGaU41LbcgF+R7X0AsJw0KyLlDOw8OpVz1pgAAATRJREFUSMfdk9tygyAQhkWUAFGj8ZSa5tSmRxpt3v/lGrbTEUkFbcebfHfs/p+zjKxzDSkqKi7QqiDOAArmYQFgjxXW+Dz1hIKXzi35pdBYGg2SC4D6CPlUALnpIjuYB6N8z/k+Rxim2hmEREiiwzFwnOB4iOCY9OdLH/L858zB8MteIQ3lCKu2sJIjhmmvwGQ7C9pCkMlPMCUy6whyok2pCuVGztQnPPrtROpMSK1ogt4lWkkDXXfRzQuLS3dhLQFky1zXxfKpuioxlOI4ZlvS3RsqLNDOJmViAJki4CECVgQoNAYgoAn1p4H6F+H8YeAsE7OucDIJpz8Jb2OF+8mF9eTCw1jh7gaE0ZdeT/6n30c/738uUFMbaPQVtaIJ0ZB8ogi8Cm1x/PTqqEZiE55fvu/8BW/i1VLDXYJ4AAAAAElFTkSuQmCC"/>
+
+    <meta name="Visual Password">
+    <meta property="og:title" content="Visual Password">
+    <meta property="og:description" content="A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down. This makes your passwords 100% secure because they cannot be stolen.">
+    <meta property="og:image" content="https://viruseg.github.io/VisualPassword/BigIconAndroid.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="Visual Password">
+    <meta name="twitter:description" content="A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down. This makes your passwords 100% secure because they cannot be stolen.">
+    <meta name="twitter:image" content="https://viruseg.github.io/VisualPassword/BigIconAndroid.png">
+
+    <style>
+        :root
+        {
+            --column-width: 381px;
+            --body-background-color: #EFEFEF;
+            --content-text-color: #000;
+            --menuFilterInput-text-color: #555;
+            --menuFilterInput-background-color: #FFF;
+            --menuFilterInput-border-color: #000;
+            --navbar-scrollbar-color1: #28A2C8;
+            --navbar-scrollbar-color2: #DFDFDF;
+            --error-border-color: #F00;
+            --focus-border-color: #00C2FF;
+            --success-border-color: #05D163;
+            --apply-border-color: #C828C8;
+            --symbol-hover-color: #F00;
+            --attention-text-color: #DA0000;
+        }
+
+        .dark
+        {
+            --body-background-color: #282A35;
+            --content-text-color: #B5B7C3;
+            --menuFilterInput-text-color: #B8B5B1;
+            --menuFilterInput-background-color: #2E303C;
+            --menuFilterInput-border-color: #282A36;
+            --navbar-scrollbar-color1: #686A71;
+            --navbar-scrollbar-color2: #3A3D4B;
+            --error-border-color: #AB4A4A;
+            --focus-border-color: #28A2C8;
+            --success-border-color: #28C830;
+            --apply-border-color: #C828C8;
+            --symbol-hover-color: #28A2C8;
+            --attention-text-color: #EF7878;
+        }
+
+        *
+        {
+            transition: color, background-color, border-color .15s ease-in-out;
+        }
+
+        html:has(body.chromeExtension)
+        {
+            scrollbar-width: thin;
+            scrollbar-color: var(--navbar-scrollbar-color1) var(--navbar-scrollbar-color2);
+        }
+
+        body
+        {
+            font-family: "Open Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-size: 14px;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+            margin: 0;
+            background-color: var(--body-background-color);
+            color: var(--content-text-color);
+            display: flex;
+            min-height: 100vh;
+            min-height: 100svh;
+            justify-content: center;
+            scrollbar-width: thin;
+            scrollbar-color: var(--navbar-scrollbar-color1) var(--navbar-scrollbar-color2);
+            overflow-x: hidden;
+        }
+
+        body.chromeExtension
+        {
+            width: 784px;
+        }
+
+        .bodyWrapper
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media screen and (max-width: 384px)
+        {
+            body
+            {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .bodyWrapper
+            {
+                transform: translateY(-24px) scale(0.95);
+            }
+        }
+
+        footer
+        {
+            width: calc(var(--column-width) - 20px);
+            padding: 10px;
+            hyphens: auto;
+            text-align: justify;
+            user-select: none;
+        }
+
+        input:focus
+        {
+            outline: none;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button
+        {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"]
+        {
+            -moz-appearance: textfield;
+        }
+
+        .attention
+        {
+            color: var(--attention-text-color);
+        }
+
+        .containerWithLabel
+        {
+            position: relative;
+            margin: 9px 0 5px;
+            padding: 12px 9px 9px;
+            border: 1px solid #4C456E;
+            border-radius: 5px;
+        }
+
+        .containerWithLabel::after
+        {
+            content: attr(headline);
+            position: absolute;
+            left: 38px;
+            top: -9.5px;
+            background-color: var(--body-background-color);
+            padding: 0 5px;
+        }
+
+        .checkboxContainer
+        {
+            width: 50%;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkboxLabel
+        {
+            flex: 1 0 auto;
+            margin-right: 10px;
+            padding-left: 5px;
+        }
+
+        .containerWithLabel .passwordSymbols
+        {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .containerWithLabel:has(input:focus)
+        {
+            border-color: var(--focus-border-color);
+        }
+
+        .containerWithLabel.error
+        {
+            border-color: var(--error-border-color);
+        }
+
+        .containerWithLabel.success
+        {
+            border-color: var(--success-border-color);
+        }
+
+        .containerWithLabel.error
+        {
+            border-color: var(--error-border-color);
+        }
+
+        .containerWithLabel.apply
+        {
+            border-color: var(--apply-border-color);
+        }
+
+        .containerWithLabel.error .keywordInput
+        {
+            background-color: #3C2E2E;
+        }
+
+        .input
+        {
+            user-select: unset;
+            width: -webkit-fill-available;
+            width: -moz-available;
+            width: stretch;
+            border: 0;
+            padding: 5px 55px 5px 10px;
+            border-radius: 2px;
+            color: var(--menuFilterInput-text-color);
+            background-color: var(--menuFilterInput-background-color);
+            border-color: var(--menuFilterInput-border-color);
+        }
+
+        .content
+        {
+            width: var(--column-width);
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        .settings
+        {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            flex: 1 0 auto;
+        }
+
+        .symbols
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .symbolsLine
+        {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .visualPassword1Container
+        {
+            display: none;
+        }
+
+        .visualPassword2Container
+        {
+            display: block;
+        }
+
+        .mainContainer
+        {
+            width: var(--column-width);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media screen and (min-width: calc(381px * 2 + 20px))
+        {
+            footer
+            {
+                width: calc(var(--column-width) * 2 - 10px);
+            }
+
+            .content
+            {
+                width: calc(var(--column-width) * 2 + 10px);
+            }
+
+            .mainContainer
+            {
+                width: calc(var(--column-width) * 2 + 10px);
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .settings
+            {
+                margin-bottom: unset;
+            }
+
+            .visualPassword1Container
+            {
+                display: block;
+                flex: 1 0 auto;
+            }
+
+            .visualPassword2Container
+            {
+                display: none;
+            }
+        }
+
+        .symbol[count]
+        {
+            background-color: #255B6E;
+        }
+
+        .symbol[count="0"]
+        {
+            background-color: unset;
+        }
+
+        .symbol[count="1"]
+        {
+            background-color: #256E3A;
+        }
+
+        .symbol[count="2"]
+        {
+            background-color: #646E25;
+        }
+
+        .symbol[count="3"]
+        {
+            background-color: #6E6125;
+        }
+
+        .symbol[count="4"]
+        {
+            background-color: #6E4925;
+        }
+
+        .symbol[count="5"]
+        {
+            background-color: #6E2E25;
+        }
+
+        .symbol[count="6"]
+        {
+            background-color: #6C256E;
+        }
+
+        .symbol[count="7"]
+        {
+            background-color: #4E256E;
+        }
+
+        .symbol[count="8"]
+        {
+            background-color: #29256E;
+        }
+
+        .symbol[count="9"]
+        {
+            background-color: #255B6E;
+        }
+
+        .symbol
+        {
+            font-size: 25px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            position: relative;
+            justify-content: flex-end;
+            border: 1px dashed #4C456E;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .symbol:hover
+            {
+                border-color: var(--symbol-hover-color);
+            }
+        }
+
+        .symbol::after
+        {
+            content: attr(letter);
+            position: absolute;
+            left: 5px;
+            bottom: 5px;
+            font-size: 15px;
+        }
+
+        .symbol.mini
+        {
+            font-size: 15px;
+            width: 25px;
+            height: 25px;
+            float: left;
+        }
+
+        .symbol.mini::after
+        {
+            font-size: 10px;
+        }
+
+        .symbol.mini::before
+        {
+            content: 'X';
+            position: absolute;
+            right: 1px;
+            bottom: 1px;
+            font-size: 10px;
+            font-weight: bold;
+            background-color: #ff0000;
+            width: 12px;
+            height: 12px;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .visualPassword
+        {
+            scrollbar-width: thin;
+            scrollbar-color: var(--navbar-scrollbar-color1) var(--navbar-scrollbar-color2);
+            min-height: 37px;
+            width: calc(var(--column-width) - 20px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        .passwordOutput
+        {
+            min-height: 37px;
+            user-select: text;
+            white-space: pre-wrap;
+            word-break: break-all;
+            flex: 1 1 auto;
+        }
+
+        .passwordOutput.infoText
+        {
+            white-space: normal;
+            word-break: normal;
+        }
+
+        .passwordOutput,
+        .symbol.mini::before,
+        .help
+        {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        .visualSymbolsControlContainer
+        {
+            display: flex;
+            gap: 5px;
+        }
+
+        .controlButton
+        {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            position: relative;
+            justify-content: flex-end;
+            border: 1px dashed #4C456E;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px;
+            flex: 0 0 auto;
+        }
+
+        .visualSymbolsControlContainer .controlButton
+        {
+            flex: 1 0 auto;
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .controlButton:hover
+            {
+                border-color: var(--symbol-hover-color);
+            }
+        }
+
+        .controlButton:after
+        {
+            content: '';
+            background-color: var(--content-text-color);
+            mask: no-repeat center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .controlApply
+        {
+            border-color: var(--apply-border-color);
+            border-style: solid;
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .controlApply:hover
+            {
+                border-color: var(--apply-border-color);
+                border-style: solid;
+            }
+        }
+
+        .passwordContainer
+        {
+            display: flex;
+            gap: 5px;
+        }
+
+        .passwordContainer .passwordCopy,
+        .passwordContainer .passwordClear
+        {
+            display: none;
+        }
+
+        .success .passwordContainer .passwordCopy,
+        .success .passwordContainer .passwordClear
+        {
+            display: flex;
+        }
+
+        .inputWrapper
+        {
+            position: relative;
+        }
+
+        .inputButtons
+        {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-right: 7px;
+            gap: 7px;
+        }
+
+        .inputButton
+        {
+            width: 17px;
+            height: 17px;
+            background-color: var(--content-text-color);
+            mask: no-repeat center;
+            mask-size: contain;
+            cursor: pointer;
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .inputButton:hover
+            {
+                background-color: var(--symbol-hover-color);
+            }
+        }
+
+        .controlBackspace:after
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTEuNzA3MSA1LjI5Mjg5QzEyLjA5NzYgNS42ODM0MiAxMi4wOTc2IDYuMzE2NTggMTEuNzA3MSA2LjcwNzExTDcuNDE0MjEgMTFIMTlDMTkuNTUyMyAxMSAyMCAxMS40NDc3IDIwIDEyQzIwIDEyLjU1MjMgMTkuNTUyMyAxMyAxOSAxM0g3LjQxNDIxTDExLjcwNzEgMTcuMjkyOUMxMi4wOTc2IDE3LjY4MzQgMTIuMDk3NiAxOC4zMTY2IDExLjcwNzEgMTguNzA3MUMxMS4zMTY2IDE5LjA5NzYgMTAuNjgzNCAxOS4wOTc2IDEwLjI5MjkgMTguNzA3MUw0LjI5Mjg5IDEyLjcwNzFDNC4xMDUzNiAxMi41MTk2IDQgMTIuMjY1MiA0IDEyQzQgMTEuNzM0OCA0LjEwNTM2IDExLjQ4MDQgNC4yOTI4OSAxMS4yOTI5TDEwLjI5MjkgNS4yOTI4OUMxMC42ODM0IDQuOTAyMzcgMTEuMzE2NiA0LjkwMjM3IDExLjcwNzEgNS4yOTI4OVoiIGZpbGw9IiNGRkYiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .controlClear:after, .inputButtonClear
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNNS4yOTI4OSA1LjI5Mjg5QzUuNjgzNDIgNC45MDIzNyA2LjMxNjU4IDQuOTAyMzcgNi43MDcxMSA1LjI5Mjg5TDEyIDEwLjU4NThMMTcuMjkyOSA1LjI5Mjg5QzE3LjY4MzQgNC45MDIzNyAxOC4zMTY2IDQuOTAyMzcgMTguNzA3MSA1LjI5Mjg5QzE5LjA5NzYgNS42ODM0MiAxOS4wOTc2IDYuMzE2NTggMTguNzA3MSA2LjcwNzExTDEzLjQxNDIgMTJMMTguNzA3MSAxNy4yOTI5QzE5LjA5NzYgMTcuNjgzNCAxOS4wOTc2IDE4LjMxNjYgMTguNzA3MSAxOC43MDcxQzE4LjMxNjYgMTkuMDk3NiAxNy42ODM0IDE5LjA5NzYgMTcuMjkyOSAxOC43MDcxTDEyIDEzLjQxNDJMNi43MDcxMSAxOC43MDcxQzYuMzE2NTggMTkuMDk3NiA1LjY4MzQyIDE5LjA5NzYgNS4yOTI4OSAxOC43MDcxQzQuOTAyMzcgMTguMzE2NiA0LjkwMjM3IDE3LjY4MzQgNS4yOTI4OSAxNy4yOTI5TDEwLjU4NTggMTJMNS4yOTI4OSA2LjcwNzExQzQuOTAyMzcgNi4zMTY1OCA0LjkwMjM3IDUuNjgzNDIgNS4yOTI4OSA1LjI5Mjg5WiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8L3N2Zz4=);
+        }
+
+        .controlCopy:after
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMiA0QzIgMi44OTU0MyAyLjg5NTQzIDIgNCAySDE0QzE1LjEwNDYgMiAxNiAyLjg5NTQzIDE2IDRWOEgyMEMyMS4xMDQ2IDggMjIgOC44OTU0MyAyMiAxMFYyMEMyMiAyMS4xMDQ2IDIxLjEwNDYgMjIgMjAgMjJIMTBDOC44OTU0MyAyMiA4IDIxLjEwNDYgOCAyMFYxNkg0QzIuODk1NDMgMTYgMiAxNS4xMDQ2IDIgMTRWNFpNMTAgMTZWMjBIMjBWMTBIMTZWMTRDMTYgMTUuMTA0NiAxNS4xMDQ2IDE2IDE0IDE2SDEwWk0xNCAxNFY0TDQgNFYxNEgxNFoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .controlPaste:after
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNOCAzQzggMi40NDc3MiA4LjQ0NzcyIDIgOSAySDE1QzE1LjU1MjMgMiAxNiAyLjQ0NzcyIDE2IDNIMThDMTkuMTA0NiAzIDIwIDMuODk1NDMgMjAgNVYyMEMyMCAyMS4xMDQ2IDE5LjEwNDYgMjIgMTggMjJINkM0Ljg5NTQzIDIyIDQgMjEuMTA0NiA0IDIwVjVDNCAzLjg5NTQzIDQuODk1NDMgMyA2IDNIOFpNOCA1SDZWMjBIMThWNUgxNlY2QzE2IDYuNTUyMjggMTUuNTUyMyA3IDE1IDdIOUM4LjQ0NzcyIDcgOCA2LjU1MjI4IDggNlY1Wk0xNCA0SDEwVjVIMTRWNFoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .controlShuffle:after
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMjEuOTI0MSA2LjYxNzIyQzIxLjg3NTMgNi40OTkyNyAyMS44MDMgNi4zODg3NyAyMS43MDcxIDYuMjkyODlMMTguNzA3MSAzLjI5Mjg5QzE4LjMxNjYgMi45MDIzNyAxNy42ODM0IDIuOTAyMzcgMTcuMjkyOSAzLjI5Mjg5QzE2LjkwMjQgMy42ODM0MiAxNi45MDI0IDQuMzE2NTggMTcuMjkyOSA0LjcwNzExTDE4LjU4NTggNkwxNS4yNjQ4IDZDMTMuNTA4NCA2IDExLjg4MDkgNi45MjE0OSAxMC45NzczIDguNDI3NTJMNy4zMDc3MiAxNC41NDM1QzYuNzY1NTUgMTUuNDQ3MSA1Ljc4OTAzIDE2IDQuNzM1MjQgMTZIM0MyLjQ0NzcyIDE2IDIgMTYuNDQ3NyAyIDE3QzIgMTcuNTUyMyAyLjQ0NzcyIDE4IDMgMThINC43MzUyNEM2LjQ5MTU1IDE4IDguMTE5MDkgMTcuMDc4NSA5LjAyMjcgMTUuNTcyNUwxMi42OTIzIDkuNDU2NTFDMTMuMjM0NSA4LjU1MjkgMTQuMjExIDggMTUuMjY0OCA4SDE4LjU4NThMMTcuMjkyOSA5LjI5Mjg5QzE2LjkwMjQgOS42ODM0MiAxNi45MDI0IDEwLjMxNjYgMTcuMjkyOSAxMC43MDcxQzE3LjY4MzQgMTEuMDk3NiAxOC4zMTY2IDExLjA5NzYgMTguNzA3MSAxMC43MDcxTDIxLjcwNjMgNy43MDc4N0MyMS43MDg4IDcuNzA1NDQgMjEuNzExMiA3LjcwMyAyMS43MTM2IDcuNzAwNTVDMjEuOTA0NSA3LjUwNjEzIDIyIDcuMjUzMDcgMjIgNyIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik0yMS45MjQxIDYuNjE3MjJDMjEuOTcyNyA2LjczNDI1IDIxLjk5OTYgNi44NjI1IDIyIDYuOTk3WiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik0yMS43MDYxIDE3LjcwODFMMTguNzA3MSAyMC43MDcxQzE4LjMxNjYgMjEuMDk3NiAxNy42ODM0IDIxLjA5NzYgMTcuMjkyOSAyMC43MDcxQzE2LjkwMjQgMjAuMzE2NiAxNi45MDI0IDE5LjY4MzQgMTcuMjkyOSAxOS4yOTI5TDE4LjU4NTggMThIMTUuMjY0OEMxMy41MDg0IDE4IDExLjg4MDkgMTcuMDc4NSAxMC45NzczIDE1LjU3MjVMNy4zMDc3MiA5LjQ1NjUxQzYuNzY1NTUgOC41NTI5IDUuNzg5MDMgOCA0LjczNTI0IDhIM0MyLjQ0NzcyIDggMiA3LjU1MjI4IDIgN0MyIDYuNDQ3NzEgMi40NDc3MiA2IDMgNkg0LjczNTI0QzYuNDkxNTUgNiA4LjExOTA5IDYuOTIxNSA5LjAyMjcgOC40Mjc1MkwxMi42OTIzIDE0LjU0MzVDMTMuMjM0NSAxNS40NDcxIDE0LjIxMSAxNiAxNS4yNjQ4IDE2SDE4LjU4NThMMTcuMjkyOSAxNC43MDcxQzE2LjkwMjQgMTQuMzE2NiAxNi45MDI0IDEzLjY4MzQgMTcuMjkyOSAxMy4yOTI5QzE3LjY4MzQgMTIuOTAyNCAxOC4zMTY2IDEyLjkwMjQgMTguNzA3MSAxMy4yOTI5TDIxLjcwNzEgMTYuMjkyOUMyMS45MDE2IDE2LjQ4NzQgMjEuOTk5MiAxNi43NDIxIDIyIDE2Ljk5N0wyMiAxN0MyMiAxNy4yNzY2IDIxLjg4NzcgMTcuNTI3IDIxLjcwNjEgMTcuNzA4MVoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .controlApply:after
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMjAuNjY0NCA1LjI1MjZDMjEuMDc3MiA1LjYxOTUyIDIxLjExNDMgNi4yNTE1OSAyMC43NDc0IDYuNjY0MzdMMTAuMDgwOCAxOC42NjQ0QzkuODkwOTkgMTguODc3OSA5LjYxODk4IDE5IDkuMzMzMzQgMTlDOS4wNDc3MSAxOSA4Ljc3NTcgMTguODc3OSA4LjU4NTkzIDE4LjY2NDRMMy4yNTI2IDEyLjY2NDRDMi44ODU2OCAxMi4yNTE2IDIuOTIyODYgMTEuNjE5NSAzLjMzNTY1IDExLjI1MjZDMy43NDg0MyAxMC44ODU3IDQuMzgwNSAxMC45MjI5IDQuNzQ3NDIgMTEuMzM1Nkw5LjMzMzM0IDE2LjQ5NDhMMTkuMjUyNiA1LjMzNTY1QzE5LjYxOTUgNC45MjI4NiAyMC4yNTE2IDQuODg1NjggMjAuNjY0NCA1LjI1MjZaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+Cjwvc3ZnPg==);
+        }
+
+        .inputButtonEye
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTUgMTJDMTUgMTMuNjU2OSAxMy42NTY5IDE1IDEyIDE1QzEwLjM0MzEgMTUgOSAxMy42NTY5IDkgMTJDOSAxMC4zNDMxIDEwLjM0MzEgOSAxMiA5QzEzLjY1NjkgOSAxNSAxMC4zNDMxIDE1IDEyWiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik0yMS44OTQ0IDExLjU1MjhDMTkuNzM2MiA3LjIzNjM1IDE1LjkwMzEgNSAxMiA1QzguMDk2ODcgNSA0LjI2Mzc5IDcuMjM2MzUgMi4xMDU1NyAxMS41NTI4QzEuOTY0ODEgMTEuODM0MyAxLjk2NDgxIDEyLjE2NTcgMi4xMDU1NyAxMi40NDcyQzQuMjYzNzkgMTYuNzYzNyA4LjA5Njg3IDE5IDEyIDE5QzE1LjkwMzEgMTkgMTkuNzM2MiAxNi43NjM3IDIxLjg5NDQgMTIuNDQ3MkMyMi4wMzUyIDEyLjE2NTcgMjIuMDM1MiAxMS44MzQzIDIxLjg5NDQgMTEuNTUyOFpNMTIgMTdDOS4wMzEyMSAxNyA1Ljk5ODA2IDE1LjM3OTIgNC4xMjk2NiAxMkM1Ljk5ODA2IDguNjIwNzggOS4wMzEyMSA3IDEyIDdDMTQuOTY4OCA3IDE4LjAwMTkgOC42MjA3OCAxOS44NzAzIDEyQzE4LjAwMTkgMTUuMzc5MiAxNC45Njg4IDE3IDEyIDE3WiIgZmlsbD0iIzBEMEQwRCI+PC9wYXRoPgo8L3N2Zz4=);
+        }
+
+        .inputButtonEyeOff
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNNC43MDcxMSAzLjI5Mjg5QzQuMzE2NTggMi45MDIzNyAzLjY4MzQyIDIuOTAyMzcgMy4yOTI4OSAzLjI5Mjg5QzIuOTAyMzcgMy42ODM0MiAyLjkwMjM3IDQuMzE2NTggMy4yOTI4OSA0LjcwNzExTDUuNzE3MDYgNy4xMzEyN0M0LjI4NjM5IDguMjA3MzcgMy4wMzkyNSA5LjY4NTQzIDIuMTA1NTcgMTEuNTUyOEMxLjk2NDgxIDExLjgzNDMgMS45NjQ4MSAxMi4xNjU3IDIuMTA1NTcgMTIuNDQ3MkM0LjI2Mzc5IDE2Ljc2MzcgOC4wOTY4NyAxOSAxMiAxOUMxMy41NTUyIDE5IDE1LjA5OTIgMTguNjQ1IDE2LjUzMDYgMTcuOTQ0OEwxOS4yOTI5IDIwLjcwNzFDMTkuNjgzNCAyMS4wOTc2IDIwLjMxNjYgMjEuMDk3NiAyMC43MDcxIDIwLjcwNzFDMjEuMDk3NiAyMC4zMTY2IDIxLjA5NzYgMTkuNjgzNCAyMC43MDcxIDE5LjI5MjlMNC43MDcxMSAzLjI5Mjg5Wk0xNS4wMTM4IDE2LjQyOEMxNC4wMzQzIDE2LjgxMTIgMTMuMDEzNCAxNyAxMiAxN0M5LjAzMTIxIDE3IDUuOTk4MDYgMTUuMzc5MiA0LjEyOTY2IDEyQzQuOTQ3MjEgMTAuNTIxNCA1Ljk4Nzc4IDkuMzc5NCA3LjE0ODM4IDguNTYyNTlMOS4yOTIzNyAxMC43MDY2QzkuMTA0OTUgMTEuMDk4MiA5IDExLjUzNjkgOSAxMkM5IDEzLjY1NjkgMTAuMzQzMSAxNSAxMiAxNUMxMi40NjMxIDE1IDEyLjkwMTggMTQuODk1MSAxMy4yOTM0IDE0LjcwNzZMMTUuMDEzOCAxNi40MjhaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+CjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0iTTE4LjU1MjMgMTMuODk1NUMxOS4wMzUzIDEzLjM0MDIgMTkuNDc4NCAxMi43MDg4IDE5Ljg3MDMgMTJDMTguMDAxOSA4LjYyMDc4IDE0Ljk2ODcgNyAxMiA3QzExLjg4OCA3IDExLjc3NTkgNy4wMDIzMSAxMS42NjM3IDcuMDA2OTNMOS44NzkzOSA1LjIyMjU4QzEwLjU3NzQgNS4wNzQ1MSAxMS4yODc1IDUgMTIgNUMxNS45MDMxIDUgMTkuNzM2MiA3LjIzNjM1IDIxLjg5NDQgMTEuNTUyOEMyMi4wMzUyIDExLjgzNDMgMjIuMDM1MiAxMi4xNjU3IDIxLjg5NDQgMTIuNDQ3MkMyMS4zNTA0IDEzLjUzNTIgMjAuNyAxNC40OTEgMTkuOTY4OSAxNS4zMTIxTDE4LjU1MjMgMTMuODk1NVoiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .inputButtonIncrement
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTIgNEM3LjU4MTcyIDQgNCA3LjU4MTcyIDQgMTJDNCAxNi40MTgzIDcuNTgxNzIgMjAgMTIgMjBDMTYuNDE4MyAyMCAyMCAxNi40MTgzIDIwIDEyQzIwIDcuNTgxNzIgMTYuNDE4MyA0IDEyIDRaTTIgMTJDMiA2LjQ3NzE1IDYuNDc3MTUgMiAxMiAyQzE3LjUyMjggMiAyMiA2LjQ3NzE1IDIyIDEyQzIyIDE3LjUyMjggMTcuNTIyOCAyMiAxMiAyMkM2LjQ3NzE1IDIyIDIgMTcuNTIyOCAyIDEyWk0xMiA3QzEyLjU1MjMgNyAxMyA3LjQ0NzcyIDEzIDhWMTFIMTZDMTYuNTUyMyAxMSAxNyAxMS40NDc3IDE3IDEyQzE3IDEyLjU1MjMgMTYuNTUyMyAxMyAxNiAxM0gxM1YxNkMxMyAxNi41NTIzIDEyLjU1MjMgMTcgMTIgMTdDMTEuNDQ3NyAxNyAxMSAxNi41NTIzIDExIDE2VjEzSDhDNy40NDc3MiAxMyA3IDEyLjU1MjMgNyAxMkM3IDExLjQ0NzcgNy40NDc3MiAxMSA4IDExSDExVjhDMTEgNy40NDc3MiAxMS40NDc3IDcgMTIgN1oiIGZpbGw9IiMwRDBEMEQiPjwvcGF0aD4KPC9zdmc+);
+        }
+
+        .inputButtonDecrement
+        {
+            mask-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJNMTIgNEM3LjU4MTcyIDQgNCA3LjU4MTcyIDQgMTJDNCAxNi40MTgzIDcuNTgxNzIgMjAgMTIgMjBDMTYuNDE4MyAyMCAyMCAxNi40MTgzIDIwIDEyQzIwIDcuNTgxNzIgMTYuNDE4MyA0IDEyIDRaTTIgMTJDMiA2LjQ3NzE1IDYuNDc3MTUgMiAxMiAyQzE3LjUyMjggMiAyMiA2LjQ3NzE1IDIyIDEyQzIyIDE3LjUyMjggMTcuNTIyOCAyMiAxMiAyMkM2LjQ3NzE1IDIyIDIgMTcuNTIyOCAyIDEyWk03IDEyQzcgMTEuNDQ3NyA3LjQ0NzcyIDExIDggMTFIMTZDMTYuNTUyMyAxMSAxNyAxMS40NDc3IDE3IDEyQzE3IDEyLjU1MjMgMTYuNTUyMyAxMyAxNiAxM0g4QzcuNDQ3NzIgMTMgNyAxMi41NTIzIDcgMTJaIiBmaWxsPSIjMEQwRDBEIj48L3BhdGg+Cjwvc3ZnPg==);
+        }
+
+        .help
+        {
+            position: absolute;
+            font-size: 11px;
+        }
+
+        .help:before
+        {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -20.5px;
+            width: 14px;
+            height: 14px;
+            background-color: var(--body-background-color);
+            padding: 0 5px;
+        }
+        .help:after
+        {
+            content: '?';
+            position: absolute;
+            cursor: pointer;
+            left: 5px;
+            top: -20.5px;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: bold;
+            background-color: var(--content-text-color);
+            color: var(--body-background-color);
+        }
+
+        .helpText
+        {
+            position: absolute;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: var(--body-background-color);
+            color: var(--content-text-color);
+            border: 1px solid;
+            z-index: 100;
+            top: 10px;
+            left: 15px;
+            min-width: 250px;
+            display: none;
+        }
+
+        .help.show .helpText
+        {
+            display: block;
+        }
+
+        .githubLink
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+            color: var(--content-text-color);
+        }
+
+        @media (hover: hover) and (pointer: fine)
+        {
+            .githubLink:hover
+            {
+                color: #206AE6;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bodyWrapper">
+    <div class="content">
+        <div class="mainContainer">
+            <div class="settings">
+                <div id="keywordContainer" class="containerWithLabel" headline="Keyword">
+                    <div class="help">
+                        <div class="helpText">A keyword describing the password being created: google, facebook, etc</div>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="text" id="keywordInput" class="input keywordInput" spellcheck="false" autocorrect="off" autocapitalize="none"/>
+                        <div class="inputButtons">
+                            <div id="keywordClear" class="inputButton inputButtonClear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Pin">
+                    <div class="help">
+                        <div class="helpText">A pin used to generate the password. Leave blank for no pin. Reduces the chance of accidental password matches for different users.</div>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="text" id="pinInput" class="input password" spellcheck="false" autocorrect="off" autocapitalize="none"/>
+                        <div class="inputButtons">
+                            <div id="pinInputShowPin" class="inputButton inputButtonEye"></div>
+                            <div id="pinInputClear" class="inputButton inputButtonClear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Password Symbols">
+                    <div class="help">
+                        <div class="helpText">Symbols to include in the password.</div>
+                    </div>
+                    <div class="passwordSymbols">
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="lowercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="lowercaseCheckbox" translate="no">a-z</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="numbersCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="numbersCheckbox" translate="no">0-9</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="uppercaseCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="uppercaseCheckbox" translate="no">A-Z</label>
+                        </div>
+                        <div class="checkboxContainer">
+                            <input type="checkbox" id="symbolsCheckbox" class="checkbox symbolsCheckbox" checked needsave="true"/>
+                            <label class="checkboxLabel" for="symbolsCheckbox" translate="no">!@#$%^&*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerWithLabel" headline="Password Length">
+                    <div class="help">
+                        <div class="helpText">The length of the generated password.</div>
+                    </div>
+                    <div class="inputWrapper">
+                        <input type="number" id="lengthInput" class="input" min="0" max="1048576" value="32" needsave="true"/>
+                        <div class="inputButtons">
+                            <div id="lengthInputIncrement" class="inputButton inputButtonIncrement"></div>
+                            <div id="lengthInputDecrement" class="inputButton inputButtonDecrement"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="visualPassword1Container" class="containerWithLabel visualPassword1Container" headline="Visual Password">
+                    <div class="help">
+                        <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
+                    </div>
+                    <div id="visualPassword1" class="visualPassword"></div>
+                </div>
+            </div>
+            <div class="visualSymbolsContainer">
+                <div class="symbols containerWithLabel" headline="Emoji for a visual password">
+                    <div class="help">
+                        <div class="helpText">Use this symbol table to set a visual password.</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="A" count="0" passwordpart="MI=@4SA*m'\_pbtt7bEh_A😀b~SM~xy.eEAh,pRl8Wd67'\3#-Q4ϒۺ" emoji="❤">❤️</div>
+                        <div class="symbol" letter="B" count="0" passwordpart="[Ky7T^.qq-#.2'@zy=4p+i😁(HCS_Ke~m%JNvc;O4n#T%~H39i:gϾۻ" emoji="🦴">🦴</div>
+                        <div class="symbol" letter="C" count="0" passwordpart="QuM,c5FC0Qo*{6;Dv<^>xS😂^S8+G{jZpH[7RI^h+:$PI7^=6o\FϹۼ" emoji="🔔">🔔</div>
+                        <div class="symbol" letter="D" count="0" passwordpart="p3sc|CQL+Isw2cmkPmNYlB🤣't'BVjn}ol+K/Ap5*%a*@6rO7Bzoϱ۽" emoji="✈">✈️</div>
+                        <div class="symbol" letter="E" count="0" passwordpart="!y:L1Iu_:I5p2:\6y5j+k[😃4@x!]X!KdvmUo|NjmkWzW@F[{@b0Ͱ۾" emoji="🌻">🌻</div>
+                        <div class="symbol" letter="F" count="0" passwordpart="?Jbvh)`zHft?FM;DLj9YKx😄W|Q]4-WLYY68:sLkKGPvhL2TmeEpͶۿ" emoji="🍄">🍄</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="G" count="0" passwordpart="g{W!t|Wh<Z>V2,J7.w/u.W😅bP>fk0kN.9qZNOE>j3Ej%q``[r_Yϵݐ" emoji="🍉">🍉</div>
+                        <div class="symbol" letter="H" count="0" passwordpart="sn-Yd,hjO#uNx3hX'E(BCd😆?Xe4<7JtzepC9:$^`sDt5T&h/Gi3ᾨݑ" emoji="✂">✂️</div>
+                        <div class="symbol" letter="I" count="0" passwordpart="ka1sbM($-BKQB+@Y*p75Bt😉nR)lYU+bIum4h$,H{}^(~xK6|vEiὮݒ" emoji="📌">📌</div>
+                        <div class="symbol" letter="J" count="0" passwordpart="muGGamG58V<WY9aEmxc@7,😊TE{Dq<sEH_BjJwd<mM!YBM>wWmQWὪݓ" emoji="🍬">🍬</div>
+                        <div class="symbol" letter="K" count="0" passwordpart="Bl-=~/rtJE?y4U'8E$~#O7😋*OIz~hJ;/]k^)XTr~477ziJ#I!VkὫݔ" emoji="💎">💎</div>
+                        <div class="symbol" letter="L" count="0" passwordpart=">W'C?D>Jb@[~@;ikS$yi=g😎Y#d;mM.,.)o5SXz4j-Kf?RU1%Pl$Ὥݕ" emoji="🍕">🍕</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="M" count="0" passwordpart="$_y[a`YEFZ!z1a0|G-BqIt😍Msqsa5eOSZuq4uWTN%nH!k!`lO!.Ώݖ" emoji="⬅">⬅️</div>
+                        <div class="symbol" letter="N" count="0" passwordpart="5Eb&hgSP*[9Lupw/p$I$dq😘?v5VTi`27A4\K;eq>o7bS}[(hh;=Ὓݗ" emoji="➡">➡️</div>
+                        <div class="symbol" letter="O" count="0" passwordpart="Qu:`M5;@4o7NCruEqW!~Yw🥰H=%edAF$Uw6,'k'frw8p|a~&3=GdὝݘ" emoji="⬆">⬆️</div>
+                        <div class="symbol" letter="P" count="0" passwordpart="GpsN1hh'P18tl\%9Bu!262😗T:GEl/NT>c[*tqYt:lQz!_?C~b4zΎݙ" emoji="⬇">⬇️</div>
+                        <div class="symbol" letter="Q" count="0" passwordpart="`.+gi~0=f590.Bje5;KW,V😙]#0A|\*[*&85OsRf2p.4aS'D{A*sῬݚ" emoji="🌈">🌈</div>
+                        <div class="symbol" letter="R" count="0" passwordpart="uVks=X6X\N_rH5.aR)4e*l🥲mz{Dk/xB>R6w*m,z^w[hZRIWF[`&Ὂݛ" emoji="⛄">⛄</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="S" count="0" passwordpart="|hl{WHS_uw8(S*`c?4RlAg😚7H\1s4oOfgIt+U]t4F'7f1t?qPI!Ὄݜ" emoji="🔥">🔥</div>
+                        <div class="symbol" letter="T" count="0" passwordpart="!Ki@IV6usC4zB_{f;64'|w☺️BUDv~[w&p-22qG[$<6k,9wnY=jlὉݝm" emoji="❄">❄️</div>
+                        <div class="symbol" letter="U" count="0" passwordpart="TS2]_3Ik;p50sH%A_rWQ!(🙂I$na4QX]%%deOU@kf1/VtBG#kLnDἾݞ" emoji="💊">💊</div>
+                        <div class="symbol" letter="V" count="0" passwordpart="M&AUCAOcbneZI3|CL{?v`n🤗y[bfF{>s,+1AxXy(vx#<yFvv/7k)Ἲݟ" emoji="🐟">🐟</div>
+                        <div class="symbol" letter="W" count="0" passwordpart="Nmvh^c5/YilN0NgCp=J@p+🤩w/gHr;m]VQ:GztD[SHEw0#g|s$(|Ῐݠ" emoji="☂">☂️</div>
+                        <div class="symbol" letter="X" count="0" passwordpart="*v~vp0)<}q~j^mLFl`cq3@🤔fP^5OW:T1?UZGS2t}sHH9Ab|}wz%Ῑݡ" emoji="🏀">🏀</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="Y" count="0" passwordpart="~V/FLv}CLq2O)~Q[|WaPuM🫡p3dEb;8-048`}s&5]_\n,g|;2])nῚݢ" emoji="🥚">🥚</div>
+                        <div class="symbol" letter="Z" count="0" passwordpart="q0#4]Lc?MBaHVA:5L_#0F:🤨ofWU\}lDLWW{5SnfQ.S;@q.,;QFJᾘݣ" emoji="🦋">🦋</div>
+                        <div class="symbol" letter="0" count="0" passwordpart="$qm9S)o%c3s:3m<\e*EBP}😐qqp#S})gnTZU2'^NX=]7^{oqTlA<Ἦݤ" emoji="🌸">🌸</div>
+                        <div class="symbol" letter="1" count="0" passwordpart="++TN~Cc[`v<2m5rCZj.l2`😑u~n^jWq**QMobkSKCz*nR)wDt&\aἪ" emoji="🎨">🎨</div>
+                        <div class="symbol" letter="2" count="0" passwordpart="N[mBl*:XdFWqC/Ha$[.v0]😶Ax?g:a+rBGeL4!)a)Ffu>5|2VD8hἫݥ" emoji="🪜">🪜</div>
+                        <div class="symbol" letter="3" count="0" passwordpart="`ZSlt<-G4:7HNg+5np!^]g🫥:YV5!c;29hatJ1fExwhFjM|0%Fg;Ἥݦ" emoji="🎲">🎲</div>
+                    </div>
+                    <div class="symbolsLine">
+                        <div class="symbol" letter="4" count="0" passwordpart="hu);YPBPd9p.<$9`SUl(*V😶zUIGpi-IrzpYQmuJ#0VGBx{|-YtsΉݧ" emoji="🎹">🎹</div>
+                        <div class="symbol" letter="5" count="0" passwordpart="B9|\bNrW\1rU7HhCvne4)L‍😮'\%n-3lc5gaYH\hI>.cY,,_7x(cἜݨJ" emoji="👑">👑</div>
+                        <div class="symbol" letter="6" count="0" passwordpart="K,@r6/ZJN9n|RaLo5C&T9:🙄CjepFcHJpm\6Fb}GDSQXU0gZ}t[PἛݩ" emoji="🧵">🧵</div>
+                        <div class="symbol" letter="7" count="0" passwordpart="AS/g~1'N'RYJk)y[L0[o/v😏6,rUlh^Or`wV'5`iZk&gnW5L0R~EἝݪ" emoji="🌳">🌳</div>
+                        <div class="symbol" letter="8" count="0" passwordpart="{.^j4pnE}LkYQ~>b9k.#RD😣\`.a]hl&][_Emq\@#'N=bA4+~a5;ᾊݫ" emoji="🪣">🪣</div>
+                        <div class="symbol" letter="9" count="0" passwordpart="}TmaJ_Dr(vq~^C@Cv:KFzv😥*<`*MZ5U,.B}dIJ-]Fb~6ztMjD5[ᾌݬ" emoji="🥅">🥅</div>
+                    </div>
+                </div>
+                <div id="visualSymbolsControlContainer" class="containerWithLabel visualSymbolsControlContainer" headline="Visual password control">
+                    <div class="help">
+                        <div class="helpText">Visual password management.</div>
+                    </div>
+                    <div id="visualBackspace" class="controlButton controlBackspace"></div>
+                    <div id="visualClear" class="controlButton controlClear"></div>
+                    <div id="visualCopy" class="controlButton controlCopy"></div>
+                    <div id="visualPaste" class="controlButton controlPaste"></div>
+                </div>
+            </div>
+        </div>
+        <div id="visualPassword2Container" class="containerWithLabel visualPassword2Container" headline="Visual Password">
+            <div class="help">
+                <div class="helpText">An easy-to-remember set of emojis. It is used to generate a password.</div>
+            </div>
+            <div id="visualPassword2" class="visualPassword"></div>
+        </div>
+        <div id="passwordContainer" class="containerWithLabel" headline="Password">
+            <div class="help">
+                <div class="helpText">The generated password.</div>
+            </div>
+            <div class="passwordContainer">
+                <div id="passwordOutput" class="passwordOutput"></div>
+                <div id="passwordCopy" class="controlButton controlCopy passwordCopy"></div>
+                <div id="passwordClear" class="controlButton controlClear passwordClear"></div>
+                <div id="passwordShuffle" class="controlButton controlShuffle"></div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a class="githubLink" href="https://github.com/viruseg/VisualPassword" target="_blank">
+            <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" xmlns="http://www.w3.org/2000/svg" d="M12 2C6.5 2 2 6.5 2 12C2 16.3 4.8 20.1 8.8 21.5C9.3 21.6 9.5 21.3 9.5 21C9.5 20.8 9.5 20 9.5 19.1C7 19.6 6.4 18.5 6.2 18C6.1 17.7 5.6 16.8 5.2 16.6C4.9 16.4 4.4 16 5.2 15.9C6 15.9 6.5 16.6 6.7 16.9C7.6 18.4 9 18 9.6 17.8C9.7 17.2 10 16.7 10.2 16.5C8 16.2 5.7 15.3 5.7 11.5C5.7 10.4 6.1 9.5 6.7 8.8C6.6 8.5 6.2 7.5 6.8 6.1C6.8 6.1 7.6 5.8 9.6 7.1C10.3 6.9 11.2 6.8 12 6.8C12.9 6.8 13.7 6.9 14.5 7.1C16.4 5.8 17.3 6.1 17.3 6.1C17.8 7.5 17.5 8.5 17.4 8.7C18 9.4 18.4 10.3 18.4 11.4C18.4 15.2 16.1 16.1 13.8 16.3C14.2 16.6 14.5 17.2 14.5 18.2C14.5 19.5 14.5 20.6 14.5 21C14.5 21.3 14.7 21.6 15.2 21.5C19.3 20.1 22 16.3 22 12C22 6.5 17.5 2 12 2Z"></path>
+            </svg>
+            Github
+        </a>
+    </footer>
+</div>
+</body>
+</html>
+
+<script>
+    class ClassWatcher
+    {
+        constructor(targetNode, classToWatch, classAddedCallback, classRemovedCallback, callbackParams)
+        {
+            this.targetNode = targetNode;
+            this.classToWatch = classToWatch;
+            this.classAddedCallback = classAddedCallback;
+            this.classRemovedCallback = classRemovedCallback;
+            this.callbackParam = callbackParams;
+            this.observer = null;
+            this.lastClassState = targetNode.classList.contains(this.classToWatch);
+
+            this.observer = new MutationObserver(this.MutationCallback);
+            this.observer.observe(this.targetNode, {attributes: true});
+        }
+
+        Disconnect()
+        {
+            this.observer.disconnect();
+        }
+
+        MutationCallback = mutationsList =>
+        {
+            for (let mutation of mutationsList)
+            {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class')
+                {
+                    let currentClassState = mutation.target.classList.contains(this.classToWatch);
+                    if (this.lastClassState !== currentClassState)
+                    {
+                        this.lastClassState = currentClassState;
+                        if (currentClassState)
+                            this.classAddedCallback(this.callbackParam);
+                        else
+                            this.classRemovedCallback(this.callbackParam);
+                    }
+                }
+            }
+        }
+    }
+
+    class PinInputController
+    {
+        constructor(inputElement)
+        {
+            this.input = inputElement;
+            this.realValue = '';
+            this.isUpdating = false;
+
+            let composing = false;
+
+            this.input.addEventListener('compositionstart', () =>
+            {
+                composing = true;
+            });
+
+            this.input.addEventListener('compositionend', () =>
+            {
+                composing = false;
+            });
+
+            this.input.addEventListener('beforeinput', (e) =>
+            {
+                if (composing || this.isUpdating || !this.input.classList.contains('password')) return;
+
+                e.preventDefault();
+                this.#HandleBeforeInput(e);
+            });
+
+            function WorkOnClassAdd(o)
+            {
+                o.realValue = o.input.value;
+                o.#OnClassChange('●'.repeat(o.RealValueLength));
+            }
+
+            function WorkOnClassRemoval(o)
+            {
+                o.#OnClassChange(o.realValue);
+            }
+
+            new ClassWatcher(this.input, 'password', WorkOnClassAdd, WorkOnClassRemoval, this);
+        }
+
+        #GraphemePositionToCodeUnits(graphemePosition)
+        {
+            const graphemes = this.Graphemes;
+            let codeUnitsPosition = 0;
+
+            for (let i = 0; i < Math.min(graphemePosition, graphemes.length); i++)
+            {
+                codeUnitsPosition += graphemes[i].segment.length;
+            }
+
+            return codeUnitsPosition;
+        }
+
+        #CodeUnitsPositionToGrapheme(codeUnitsPosition)
+        {
+            const graphemes = this.Graphemes;
+            let currentCodeUnits = 0;
+
+            for (let i = 0; i < graphemes.length; i++)
+            {
+                if (currentCodeUnits >= codeUnitsPosition)
+                {
+                    return i;
+                }
+                currentCodeUnits += graphemes[i].segment.length;
+            }
+
+            return graphemes.length;
+        }
+
+        #OnClassChange(inputValue)
+        {
+            const isPasswordMode = this.input.classList.contains('password');
+            let selectionStart, selectionEnd;
+
+            if (isPasswordMode)
+            {
+                const graphemeStart = this.#CodeUnitsPositionToGrapheme(this.input.selectionStart);
+                const graphemeEnd = this.#CodeUnitsPositionToGrapheme(this.input.selectionEnd);
+                selectionStart = graphemeStart;
+                selectionEnd = graphemeEnd;
+            }
+            else
+            {
+                selectionStart = this.#GraphemePositionToCodeUnits(this.input.selectionStart);
+                selectionEnd = this.#GraphemePositionToCodeUnits(this.input.selectionEnd);
+            }
+
+            this.isUpdating = true;
+            this.input.value = inputValue;
+            this.input.setSelectionRange(selectionStart, selectionEnd);
+            this.isUpdating = false;
+        }
+
+        #HandleBeforeInput(e)
+        {
+            const inputType = e.inputType;
+            const data = e.data;
+            const selectionStart = this.#GraphemePositionToCodeUnits(this.input.selectionStart);
+            const selectionEnd = this.#GraphemePositionToCodeUnits(this.input.selectionEnd);
+
+            let newRealValue = this.realValue;
+            let newCursorCodeUnitsPosition = selectionStart;
+
+            switch (inputType)
+            {
+                case 'insertText':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+
+                case 'deleteContentBackward':
+                    if (selectionStart === selectionEnd)
+                    {
+                        if (selectionStart > 0)
+                        {
+                            const tempGraphemes = this.#GetGraphemes(newRealValue.substring(0, selectionStart));
+                            if (tempGraphemes.length > 0)
+                            {
+                                const lastGrapheme = tempGraphemes[tempGraphemes.length - 1];
+                                const before = newRealValue.substring(0, selectionStart - lastGrapheme.segment.length);
+                                const after = newRealValue.substring(selectionStart);
+                                newRealValue = before + after;
+                                newCursorCodeUnitsPosition = selectionStart - lastGrapheme.segment.length;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + after;
+                        newCursorCodeUnitsPosition = selectionStart;
+                    }
+                    break;
+
+                case 'deleteContentForward':
+                    if (selectionStart === selectionEnd)
+                    {
+                        if (selectionStart < newRealValue.length)
+                        {
+                            const remainingText = newRealValue.substring(selectionStart);
+                            const nextGraphemes = this.#GetGraphemes(remainingText);
+                            if (nextGraphemes.length > 0)
+                            {
+                                const nextGrapheme = nextGraphemes[0];
+                                const before = newRealValue.substring(0, selectionStart);
+                                const after = newRealValue.substring(selectionStart + nextGrapheme.segment.length);
+                                newRealValue = before + after;
+                                newCursorCodeUnitsPosition = selectionStart;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + after;
+                        newCursorCodeUnitsPosition = selectionStart;
+                    }
+                    break;
+
+                case 'insertCompositionText':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+
+                case 'insertFromPaste':
+                    if (data)
+                    {
+                        const before = newRealValue.substring(0, selectionStart);
+                        const after = newRealValue.substring(selectionEnd);
+                        newRealValue = before + data + after;
+                        newCursorCodeUnitsPosition = selectionStart + data.length;
+                    }
+                    break;
+            }
+
+            this.realValue = newRealValue;
+
+            const newCursorGraphemePosition = this.#CodeUnitsPositionToGrapheme(newCursorCodeUnitsPosition);
+
+            this.isUpdating = true;
+            this.input.value = '●'.repeat(this.RealValueLength);
+            this.input.setSelectionRange(newCursorGraphemePosition, newCursorGraphemePosition);
+            this.isUpdating = false;
+            Changed();
+        }
+
+        #GetGraphemes(str)
+        {
+            const segmenter = new Intl.Segmenter('und', { granularity: 'grapheme' });
+            return Array.from(segmenter.segment(str));
+        }
+
+        get Graphemes()
+        {
+            return this.#GetGraphemes(this.realValue);
+        }
+
+        get RealValueLength()
+        {
+            const graphemes = this.Graphemes;
+            return graphemes.length;
+        }
+
+        get RealValue()
+        {
+            return this.realValue;
+        }
+
+        set RealValue(value)
+        {
+            const isPasswordMode = this.input.classList.contains('password');
+
+            this.isUpdating = true;
+            this.realValue = value;
+            this.input.value = isPasswordMode ? '●'.repeat(this.RealValueLength) : value;
+            this.isUpdating = false;
+            Changed();
+        }
+
+        Clear()
+        {
+            this.realValue = '';
+            this.isUpdating = true;
+            this.input.value = '';
+            this.isUpdating = false;
+        }
+    }
+
+    let pinInputController = new PinInputController(document.getElementById('pinInput'));
+
+    let version = 0;
+    let testPassed = true;
+    let changeTime = new Date().getTime();
+    let isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    function Changed()
+    {
+        version++;
+        changeTime = new Date().getTime();
+    }
+
+    document.addEventListener('DOMContentLoaded', () =>
+    {
+        if (!isMobile) document.getElementById('keywordInput').focus();
+
+        document.querySelectorAll('.help').forEach(help =>
+        {
+            help.addEventListener('click', () =>
+            {
+                help.classList.toggle('show');
+            });
+        });
+
+        document.addEventListener('click', (o) =>
+        {
+            if (o.target.classList.contains('help')) return;
+
+            document.querySelectorAll('.help').forEach(help =>
+            {
+                help.classList.remove('show');
+            });
+        });
+
+        document.addEventListener("mousemove", async (e) =>
+        {
+            document.querySelectorAll('.help.show .helpText').forEach(helpText =>
+            {
+                const rect = helpText.getBoundingClientRect();
+
+                if (e.clientX < rect.left - 50 ||
+                    e.clientX > rect.right + 50 ||
+                    e.clientY < rect.top - 50 ||
+                    e.clientY > rect.bottom + 50)
+                {
+                    helpText.parentElement.classList.remove('show');
+                }
+            });
+        });
+
+        document.querySelectorAll('.input, .checkbox').forEach(input =>
+        {
+            let isCheckbox = input.type === 'checkbox';
+            let isNumber = input.type === 'number';
+            let needSave = input.getAttribute('needsave');
+
+            input.addEventListener('input', (o) =>
+            {
+                Changed();
+
+                if (needSave)
+                {
+                    if (isCheckbox)
+                        localStorage.setItem(o.target.id, o.target.checked);
+                    else if (isNumber)
+                    {
+                        ValidateNumberValue(o.target);
+                        localStorage.setItem(o.target.id, o.target.value);
+                    }
+                    else
+                        localStorage.setItem(o.target.id, o.target.value);
+                }
+            });
+
+            let value = localStorage.getItem(input.id);
+
+            if (value == null) return;
+
+            if (isCheckbox)
+            {
+                value = value === 'true';
+                if (input.checked !== value) input.click();
+            }
+            else
+            {
+                if (isNumber)
+                {
+                    input.value = value;
+                    ValidateNumberValue(input);
+                }
+
+                input.value = value;
+                input.dispatchEvent(new Event('change', {bubbles: true, cancelable: true}));
+            }
+        });
+    });
+
+    document.querySelectorAll('.symbols .symbol').forEach(symbol =>
+    {
+        symbol.addEventListener('click', () =>
+        {
+            let cloneSymbol = symbol.cloneNode(true);
+            cloneSymbol.classList.add('mini');
+            cloneSymbol.setAttribute('count', '0');
+
+            let cloneSymbol2 = cloneSymbol.cloneNode(true);
+
+            document.getElementById('visualPassword1').append(cloneSymbol);
+            document.getElementById('visualPassword2').append(cloneSymbol2);
+
+            symbol.setAttribute('count', parseInt(symbol.getAttribute('count')) + 1);
+            Changed();
+
+            cloneSymbol.addEventListener('click', () => RemoveSymbol());
+            cloneSymbol2.addEventListener('click', () => RemoveSymbol());
+
+            function RemoveSymbol()
+            {
+                cloneSymbol.remove();
+                cloneSymbol2.remove();
+                Changed();
+            }
+        });
+    });
+
+    document.getElementById('passwordCopy').addEventListener('click', async (o) =>
+    {
+        let password = document.getElementById('passwordOutput').textContent;
+        let container = document.getElementById('passwordContainer');
+        await CopyTextToClipboard(password, o.target, container);
+    });
+
+    document.getElementById('passwordClear').addEventListener('click', async (o) =>
+    {
+        document.getElementById('keywordInput').value = '';
+        document.getElementById('visualClear').click();
+        pinInputController.RealValue = '';
+        document.getElementById('visualPassword1Container').classList.remove('apply');
+        document.getElementById('visualPassword2Container').classList.remove('apply');
+        Changed();
+    });
+
+    document.getElementById('passwordShuffle').addEventListener('click', async (o) =>
+    {
+        let button = o.target;
+        button.classList.add('controlApply');
+
+        document.getElementById('keywordInput').value = RandomString(100);
+        pinInputController.RealValue = RandomString(100);
+        Changed();
+
+        document.getElementById('visualClear').click();
+
+        let symbols = document.querySelectorAll('.symbols .symbol');
+        for (let i = 0; i < 9; i++)
+        {
+            symbols[Math.floor(Math.random() * symbols.length)].click();
+        }
+
+        setTimeout(() =>
+        {
+            button.classList.remove('controlApply');
+        }, 1000);
+    });
+
+    document.getElementById('visualBackspace').addEventListener('click', () =>
+    {
+        document.querySelector('#visualPassword1 > .symbol.mini:last-of-type').remove();
+        document.querySelector('#visualPassword2 > .symbol.mini:last-of-type').remove();
+        Changed();
+    });
+
+    document.getElementById('visualClear').addEventListener('click', () =>
+    {
+        let hasEmoji = false;
+        document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
+        {
+            symbol.remove();
+            hasEmoji = true;
+        });
+        document.querySelectorAll('#visualPassword2 > .symbol.mini').forEach(symbol =>
+        {
+            symbol.remove();
+            hasEmoji = true;
+        });
+        if (hasEmoji) VisualPasswordContainerFlash();
+        Changed();
+    });
+
+    document.getElementById('visualCopy').addEventListener('click', async (o) =>
+    {
+        let password = '';
+
+        document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
+        {
+            password += symbol.textContent;
+        });
+
+        if (password.length === 0) return;
+
+        let container = document.getElementById('visualPassword1Container');
+        await CopyTextToClipboard(password, o.target, container);
+        VisualPasswordContainerFlash();
+    });
+
+    function VisualPasswordContainerFlash()
+    {
+        let container1 = document.getElementById('visualPassword1Container');
+        let container2 = document.getElementById('visualPassword2Container');
+        container1.classList.add('apply');
+        container2.classList.add('apply');
+
+        setTimeout(() =>
+        {
+            container1.classList.remove('apply');
+            container2.classList.remove('apply');
+        }, 1000);
+    }
+
+    async function ReadClipboard()
+    {
+        try
+        {
+            return AndroidClipboard.readClipboard();
+        }
+        catch (e)
+        {
+            try
+            {
+                return await navigator.clipboard.readText();
+            }
+            catch (e)
+            {
+                return '';
+            }
+        }
+    }
+
+    document.getElementById('visualPaste').addEventListener('click', async (o) =>
+    {
+        let password = await ReadClipboard();
+
+        if (password.length === 0) return;
+
+        document.getElementById('visualClear').click();
+
+        let hasEmoji = false;
+
+        Array.from(password).forEach(symbol =>
+        {
+            try
+            {
+                let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
+                if (symbolInTable)
+                {
+                    symbolInTable.click();
+                    hasEmoji = true;
+                }
+            }
+            catch {}
+        });
+        if (hasEmoji)
+            VisualPasswordContainerFlash();
+        else
+        {
+            document.getElementById('visualPassword1Container').classList.remove('apply');
+            document.getElementById('visualPassword2Container').classList.remove('apply');
+        }
+    });
+
+    document.getElementById('keywordClear').addEventListener('click', () =>
+    {
+        document.getElementById('keywordInput').value = '';
+        Changed();
+    });
+
+    document.getElementById('pinInputClear').addEventListener('click', () =>
+    {
+        pinInputController.Clear();
+        Changed();
+    });
+
+    document.getElementById('pinInputShowPin').addEventListener('click', (o) =>
+    {
+        let inputButton = o.target;
+        if (inputButton.classList.contains('inputButtonEye'))
+            document.getElementById('pinInput').classList.remove('password');
+        else
+            document.getElementById('pinInput').classList.add('password');
+        inputButton.classList.toggle('inputButtonEye');
+        inputButton.classList.toggle('inputButtonEyeOff');
+    });
+
+    document.getElementById('lengthInputIncrement').addEventListener('click', (o) =>
+    {
+        let lengthInput = document.getElementById('lengthInput');
+        lengthInput.value = parseInt(lengthInput.value) + 1;
+        Changed();
+    });
+
+    document.getElementById('lengthInputDecrement').addEventListener('click', (o) =>
+    {
+        let lengthInput = document.getElementById('lengthInput');
+        lengthInput.value = parseInt(lengthInput.value) - 1;
+        Changed();
+    });
+
+    function RecalculateSymbolsCount()
+    {
+        document.querySelectorAll('.symbols .symbol').forEach(symbol =>
+        {
+            symbol.setAttribute('count', '0');
+        });
+
+        document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
+        {
+            let letter = symbol.getAttribute('letter');
+            let symbolInTable = document.querySelector('.symbols .symbol[letter="' + letter + '"]');
+
+            symbolInTable.setAttribute('count', parseInt(symbolInTable.getAttribute('count')) + 1);
+        });
+    }
+
+    function ValidateSymbolsCheckbox()
+    {
+        if (Array.from(document.querySelectorAll('.symbolsCheckbox')).every(el => !el.checked))
+        {
+            document.getElementById('lowercaseCheckbox').click();
+            document.getElementById('uppercaseCheckbox').click();
+            document.getElementById('numbersCheckbox').click();
+            document.getElementById('symbolsCheckbox').click();
+        }
+    }
+
+    function ValidateKeyword()
+    {
+        if (document.getElementById('keywordInput').value.length === 0)
+        {
+            document.getElementById('keywordContainer').classList.add('error');
+            return false;
+        }
+        else
+        {
+            document.getElementById('keywordContainer').classList.remove('error');
+            return true;
+        }
+    }
+
+    function ValidateVisualPassword()
+    {
+        if (document.getElementById('visualPassword1').childElementCount === 0)
+        {
+            document.getElementById('visualPassword1Container').classList.add('error');
+            document.getElementById('visualPassword2Container').classList.add('error');
+            return false;
+        }
+        else
+        {
+            document.getElementById('visualPassword1Container').classList.remove('error');
+            document.getElementById('visualPassword2Container').classList.remove('error');
+            return true;
+        }
+    }
+
+    function ValidateNumberValue(input)
+    {
+        let value = parseInt(input.value);
+        if (isNaN(value) || value < input.min) value = parseInt(input.min);
+        if (value > input.max) value = input.max;
+        if (input.value !== value) input.value = value;
+    }
+
+    async function CopyTextToClipboard(text, button, container)
+    {
+        try
+        {
+            await navigator.clipboard.writeText(text);
+
+            button.classList.add('controlApply');
+            container.classList.add('apply');
+
+            setTimeout(() =>
+            {
+                button.classList.remove('controlApply');
+                container.classList.remove('apply');
+            }, 1000);
+        }
+        catch (err)
+        {
+            console.error('Failed to copy text: ', err);
+        }
+    }
+
+    function GetSymbols(lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked)
+    {
+        const symbols = [];
+
+        if (lowercaseChecked)
+            symbols.push('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+
+        if (uppercaseChecked)
+            symbols.push('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+
+        if (numbersChecked)
+            symbols.push('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+        if (symbolsChecked)
+            symbols.push('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '`', '~', '[', '{', ']', '}', ':', ';', '\'', '"', '|', '\\', ',', '.', '?', '/', '<', '>');
+
+        return symbols;
+    }
+
+    function RandomString(len)
+    {
+        const symbols = GetSymbols(true, true, true, true);
+        let s = '';
+        for (let i = 0; i < len; i++)
+        {
+            s += symbols[Math.floor(Math.random() * symbols.length)];
+        }
+        return s;
+    }
+
+
+    (function ()
+    {
+        function StringToArrayBuffer(str)
+        {
+            return new TextEncoder().encode(str);
+        }
+
+        async function DeriveKey(password, salt)
+        {
+            const keyMaterial = await crypto.subtle.importKey(
+                'raw',
+                StringToArrayBuffer(password),
+                {name: 'PBKDF2'},
+                false,
+                ['deriveKey']
+            );
+
+            return await crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: StringToArrayBuffer(salt),
+                    iterations: 250000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                {name: 'AES-GCM', length: 256},
+                false,
+                ['encrypt', 'decrypt']
+            );
+        }
+
+        function Shuffle(symbols, randomValues)
+        {
+            let randomValuesIndex = 0;
+
+            for (let i = 0; i < symbols.length; i++)
+            {
+                let j = (randomValues[randomValuesIndex % randomValues.length] &
+                         symbols[i].charCodeAt(0) ^
+                         randomValues[symbols[i].charCodeAt(0) % randomValues.length]) % symbols.length;
+
+                [symbols[i], symbols[j]] = [symbols[j], symbols[i]];
+                randomValuesIndex++;
+            }
+        }
+
+        function ArrayBufferToString(buffer)
+        {
+            return new TextDecoder("utf-8").decode(buffer);
+        }
+
+        async function EncryptString(text, password, salt)
+        {
+            const encrypted = await Encrypt(text, password, salt);
+            return ArrayBufferToString(encrypted);
+        }
+
+        async function Encrypt(text, password, salt)
+        {
+            const key = await DeriveKey(password, salt);
+
+            const passwordHash = new Uint8Array(await crypto.subtle.digest('SHA-256', StringToArrayBuffer(password)));
+            const saltHash = new Uint8Array(await crypto.subtle.digest('SHA-256', StringToArrayBuffer(salt)));
+
+            for (let i = 0; i < 10; i++)
+            {
+                passwordHash[i] ^= passwordHash[i + 10] & saltHash[i + 20];
+                saltHash[i] ^= saltHash[i + 10] & passwordHash[i + 20];
+            }
+
+            passwordHash[10] ^= passwordHash[30] & saltHash[30];
+            passwordHash[11] ^= passwordHash[31] & saltHash[31];
+            saltHash[10] ^= saltHash[30] & passwordHash[30];
+            saltHash[11] ^= saltHash[31] & passwordHash[31];
+
+            const iv = new Uint8Array(12);
+
+            for (let i = 0; i < 12; i++)
+            {
+                iv[i] = saltHash[i] ^ passwordHash[i];
+            }
+
+            const encrypted = await crypto.subtle.encrypt(
+                {
+                    name: 'AES-GCM',
+                    iv: iv
+                },
+                key,
+                StringToArrayBuffer(text)
+            );
+
+            return new Uint8Array(encrypted);
+        }
+
+        function CreateRandomPassword(symbols, randomValues, passwordLength)
+        {
+            let password = '';
+
+            function GetNextRandomValue(index)
+            {
+                if (index < randomValues.length)
+                {
+                    return randomValues[index];
+                }
+
+                const baseIndex = index % randomValues.length;
+                const cycle = Math.floor(index / randomValues.length);
+
+                const baseValue = randomValues[baseIndex];
+                const nextBaseValue = randomValues[(baseIndex + 1) % randomValues.length];
+
+                return (baseValue + nextBaseValue * cycle + index) % 256;
+            }
+
+            for (let i = 0; i < passwordLength; i++)
+            {
+                const randomValue = GetNextRandomValue(i);
+
+                const symbolIndex = randomValue % symbols.length;
+
+                password += symbols[symbolIndex];
+            }
+
+            return password;
+        }
+
+        async function CreatePassword(text, password, salt, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked)
+        {
+            try
+            {
+                {
+                    let randomValues = await Encrypt(text, password, salt);
+
+                    let passwordAsArray = Array.from(password);
+                    Shuffle(passwordAsArray, randomValues);
+                    password = passwordAsArray.join('');
+                }
+
+                {
+                    let randomValues = await Encrypt(text, password, salt);
+
+                    let keywordAsArray = Array.from(text);
+                    Shuffle(keywordAsArray, randomValues);
+                    text = keywordAsArray.join('');
+                }
+
+                if (salt.length > 0)
+                {
+                    let randomValues = await Encrypt(text, password, salt);
+
+                    let pinAsArray = Array.from(salt);
+                    Shuffle(pinAsArray, randomValues);
+                    salt = pinAsArray.join('');
+                }
+
+                password = await EncryptString(password, text, salt);
+                salt = await EncryptString(salt, text, password);
+
+                let randomValues = await Encrypt(text, password, salt);
+
+                const symbols = GetSymbols(lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
+
+                Shuffle(symbols, randomValues);
+
+                return CreateRandomPassword(symbols, randomValues, passwordLength);
+            }
+            catch (err)
+            {
+                console.error('Failed to create password: ', err);
+                return "Failed to create password: " + err + ".";
+            }
+        }
+
+        let completeVersion = -1;
+        let inProcess = false;
+
+        setInterval(async () =>
+        {
+            if (inProcess || completeVersion === version || new Date().getTime() - changeTime < 500) return;
+
+            inProcess = true;
+            completeVersion = version;
+
+            let passwordContainer = document.getElementById('passwordContainer');
+            let passwordOutput = document.getElementById('passwordOutput');
+            let lengthInput = document.getElementById('lengthInput');
+            let keywordInput = document.getElementById('keywordInput');
+
+            passwordOutput.classList.add('infoText');
+            if (!isMobile) passwordOutput.style.minHeight = passwordOutput.clientHeight + 'px';
+            passwordOutput.textContent = 'Generating password...';
+
+            passwordContainer.classList.remove('success');
+            passwordContainer.classList.remove('error');
+
+            RecalculateSymbolsCount();
+            ValidateSymbolsCheckbox();
+            ValidateNumberValue(lengthInput);
+
+            if (!testPassed)
+            {
+                passwordOutput.textContent = 'Password generation is not possible because it returns an unexpected result.';
+                inProcess = false;
+                return;
+            }
+
+            if (!ValidateKeyword() || !ValidateVisualPassword())
+            {
+                passwordOutput.innerHTML = 'Input <span class="attention">Keyword</span> and <span class="attention">Visual Password</span> to generate password.<br>' +
+                                           'The same source data always generates the same password.';
+                inProcess = false;
+                return;
+            }
+
+            let passwordLength = lengthInput.value;
+
+            if (passwordLength < 1)
+            {
+                passwordOutput.textContent = 'Password length must be at least 1.';
+                passwordContainer.classList.add('error');
+                inProcess = false;
+                return;
+            }
+
+            let password = '';
+
+            document.querySelectorAll('#visualPassword1 > .symbol.mini').forEach(symbol =>
+            {
+                password += symbol.getAttribute('passwordpart') + symbol.textContent;
+            });
+
+            let keyword = keywordInput.value;
+            let pin = pinInputController.RealValue;
+
+            let lowercaseChecked = document.getElementById('lowercaseCheckbox').checked;
+            let uppercaseChecked = document.getElementById('uppercaseCheckbox').checked;
+            let numbersChecked = document.getElementById('numbersCheckbox').checked;
+            let symbolsChecked = document.getElementById('symbolsCheckbox').checked;
+
+            let resultPassword = await CreatePassword(keyword, password, pin, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
+
+            passwordContainer.classList.add('success');
+            passwordOutput.classList.remove('infoText');
+            passwordOutput.textContent = resultPassword;
+
+            if (resultPassword.startsWith('Failed'))
+            {
+                passwordContainer.classList.add('error');
+            }
+
+            inProcess = false;
+        }, 100);
+
+        async function TestCreatePassword()
+        {
+            let keyword = 'TestCreatePassword';
+            let pin = '6521';
+            let passwordLength = 50;
+            let visualPassword = '❤️🦴🔔✂️➡️';
+            let password = '';
+
+            Array.from(visualPassword).forEach(symbol =>
+            {
+                let symbolInTable = document.querySelector('.symbols .symbol[emoji="' + symbol + '"]');
+                if (symbolInTable) password += symbolInTable.getAttribute('passwordpart') + symbolInTable.textContent;
+            });
+
+            let lowercaseChecked = true;
+            let uppercaseChecked = true;
+            let numbersChecked = true;
+            let symbolsChecked = true;
+
+            let resultPassword = await CreatePassword(keyword, password, pin, passwordLength, lowercaseChecked, uppercaseChecked, numbersChecked, symbolsChecked);
+            let expectedPassword = '&878Nl%m~1M8f\\(|H3/:h~9~_$`.0=ljU!?_WB\'Xo~E>Sq&Pqa';
+
+            testPassed = (resultPassword === expectedPassword);
+            Changed();
+        }
+
+        TestCreatePassword();
+    })();
+</script>
