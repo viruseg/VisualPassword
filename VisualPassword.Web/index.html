@@ -903,6 +903,7 @@
             this.input = inputElement;
             this.realValue = '';
             this.isUpdating = false;
+            this.passwordChar = '●';
 
             let composing = false;
 
@@ -918,16 +919,24 @@
 
             this.input.addEventListener('beforeinput', (e) =>
             {
-                if (composing || this.isUpdating || !this.input.classList.contains('password')) return;
+                if (composing || this.isUpdating || !this.IsPasswordMode) return;
 
                 e.preventDefault();
                 this.#HandleBeforeInput(e);
             });
 
+            this.input.addEventListener('input', (e) =>
+            {
+                if (this.IsPasswordMode) return;
+
+                this.realValue = this.input.value;
+                Changed();
+            });
+
             function WorkOnClassAdd(o)
             {
                 o.realValue = o.input.value;
-                o.#OnClassChange('●'.repeat(o.RealValueLength));
+                o.#OnClassChange(o.passwordChar.repeat(o.RealValueLength));
             }
 
             function WorkOnClassRemoval(o)
@@ -970,10 +979,9 @@
 
         #OnClassChange(inputValue)
         {
-            const isPasswordMode = this.input.classList.contains('password');
             let selectionStart, selectionEnd;
 
-            if (isPasswordMode)
+            if (this.IsPasswordMode)
             {
                 const graphemeStart = this.#CodeUnitsPositionToGrapheme(this.input.selectionStart);
                 const graphemeEnd = this.#CodeUnitsPositionToGrapheme(this.input.selectionEnd);
@@ -1091,7 +1099,7 @@
             const newCursorGraphemePosition = this.#CodeUnitsPositionToGrapheme(newCursorCodeUnitsPosition);
 
             this.isUpdating = true;
-            this.input.value = '●'.repeat(this.RealValueLength);
+            this.input.value = this.passwordChar.repeat(this.RealValueLength);
             this.input.setSelectionRange(newCursorGraphemePosition, newCursorGraphemePosition);
             this.isUpdating = false;
             Changed();
@@ -1121,13 +1129,16 @@
 
         set RealValue(value)
         {
-            const isPasswordMode = this.input.classList.contains('password');
-
             this.isUpdating = true;
             this.realValue = value;
-            this.input.value = isPasswordMode ? '●'.repeat(this.RealValueLength) : value;
+            this.input.value = this.IsPasswordMode ? this.passwordChar.repeat(this.RealValueLength) : value;
             this.isUpdating = false;
             Changed();
+        }
+
+        get IsPasswordMode()
+        {
+            return this.input.classList.contains('password');
         }
 
         Clear()
