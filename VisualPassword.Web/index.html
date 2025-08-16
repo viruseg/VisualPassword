@@ -1421,16 +1421,28 @@
         }
     });
 
+    document.getElementById('keywordClear').addEventListener('mousedown', e => {
+        e.preventDefault();
+    });
+
     document.getElementById('keywordClear').addEventListener('click', () =>
     {
         document.getElementById('keywordInput').value = '';
         Changed();
     });
 
+    document.getElementById('pinInputClear').addEventListener('mousedown', e => {
+        e.preventDefault();
+    });
+
     document.getElementById('pinInputClear').addEventListener('click', () =>
     {
         pinInputController.Clear();
         Changed();
+    });
+
+    document.getElementById('pinInputShowPin').addEventListener('mousedown', e => {
+        e.preventDefault();
     });
 
     document.getElementById('pinInputShowPin').addEventListener('click', (o) =>
@@ -1444,11 +1456,19 @@
         inputButton.classList.toggle('inputButtonEyeOff');
     });
 
+    document.getElementById('lengthInputIncrement').addEventListener('mousedown', e => {
+        e.preventDefault();
+    });
+
     document.getElementById('lengthInputIncrement').addEventListener('click', (o) =>
     {
         let lengthInput = document.getElementById('lengthInput');
         lengthInput.value = parseInt(lengthInput.value) + 1;
         Changed();
+    });
+
+    document.getElementById('lengthInputDecrement').addEventListener('mousedown', e => {
+        e.preventDefault();
     });
 
     document.getElementById('lengthInputDecrement').addEventListener('click', (o) =>
