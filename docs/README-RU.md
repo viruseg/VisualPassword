@@ -1,5 +1,7 @@
 [<a href="../README.md">English</a>]
 
+<a href='https://ko-fi.com/alex198' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'/></a>
+
 # Visual Password
 
 Генератор сложных и безопасных паролей с помощью простых действий, которые легко запомнить и ненужно записывать. Это делает ваши пароли на 100% безопасными, потому что их нельзя украсть.

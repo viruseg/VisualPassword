@@ -1,5 +1,7 @@
 [<a href="docs/README-RU.md">Русский</a>]
 
+<a href='https://ko-fi.com/alex198' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'/></a>
+
 # Visual Password
 
 A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down. This makes your passwords 100% secure because they cannot be stolen.
