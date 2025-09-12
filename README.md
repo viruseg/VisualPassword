@@ -4,15 +4,13 @@
 
 # Visual Password
 
-Visual Password is a program that helps you easily recover secure passwords without writing them down or storing them in any service. You simply remember a couple of emojis and one keyword — like a secret code. When you need a password, the program combines those remembered emojis and the keyword to instantly generate a long, complex password directly on your device.
+Visual Password — helps you easily recover strong passwords without writing them down or storing them in any services. You just memorize a couple of emojis and a keyword. When you need a password, use a combination of memorized emojis and a keyword to instantly create a long, complex password right on your device.
 
-Everything happens locally: no servers, no internet, no databases — the program never sends or saves your passwords.
+Everything happens locally: no servers, internet, or databases — Visual Password does not send or save your passwords.
 
-In other words: you only keep small memory cues in your head, and the program turns them into a truly secure password that cannot be stolen.
+Simply put, you only keep small hints in your head, and Visual Password turns them into a really strong password.
 
 ![screen0.png](docs/imgs/screen0.png)
-
-To create passwords, Visual Password uses a multi-layered cryptographic password-generation algorithm that takes your input data (keyword, PIN, visual password). It applies multi-stage AES-GCM encryption, bit mixing for maximum entropy, and multi-stage SHA-256 hashing for cryptographic strength. PBKDF2 key derivation protects against rainbow-table attacks and adds computational complexity beyond the reach of modern supercomputers. Multiple cascade-encryption layers enhance overall resilience and provide cryptographic redundancy. The final step uses a high-entropy pseudorandom generator based on cryptographically secure data, ensuring the uniqueness and complexity of the password even with very similar inputs.
 
 # Usage Recommendations
 
