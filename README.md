@@ -4,11 +4,11 @@
 
 # Visual Password
 
-A generator for strong and secure passwords using simple actions that are easy to remember and don’t need to be written down. This makes your passwords 100% secure because they cannot be stolen.
+Visual Password is a program that helps you easily recover secure passwords without writing them down or storing them in any service. You simply remember a couple of emojis and one keyword — like a secret code. When you need a password, the program combines those remembered emojis and the keyword to instantly generate a long, complex password directly on your device.
 
-Don’t store your passwords in a password manager, notes, or on paper. Simply memorize a few emojis and a keyword to instantly recover a complex password when needed.
+Everything happens locally: no servers, no internet, no databases — the program never sends or saves your passwords.
 
-Visual Password generates passwords entirely locally on your device. No internet connection required. It does not store any generated passwords.
+In other words: you only keep small memory cues in your head, and the program turns them into a truly secure password that cannot be stolen.
 
 ![screen0.png](docs/imgs/screen0.png)
 
