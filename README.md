@@ -4,7 +4,7 @@
 
 # Visual Password
 
-Visual Password — helps you easily recover strong passwords without writing them down or storing them in any services. You just memorize a couple of emojis and a keyword. When you need a password, use a combination of memorized emojis and a keyword to instantly create a long, complex password right on your device.
+Visual Password — helps you easily recover strong passwords without writing them down or storing them in password managers. You just memorize a couple of emojis and a keyword. When you need a password, use a combination of them to instantly create a long, complex password right on your device.
 
 Everything happens locally: no servers, internet, or databases — Visual Password does not send or save your passwords.
 
