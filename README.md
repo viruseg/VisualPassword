@@ -63,4 +63,4 @@ Attribution-NonCommercial 4.0 International
 
 # Third-party libraries
 
-- [MonoIcons](https://icons.mono.company/)
+- [MonoIcons](https://github.com/mono-company/mono-icons)
